@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>About on Jakub&#39;s tech blog</title>
+    <link>https://example.com/</link>
+    <description>Recent content in About on Jakub&#39;s tech blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Jakub Tomšů (CC BY 4.0)</copyright>
+    <lastBuildDate>Thu, 24 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Projects</title>
+      <link>https://example.com/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/projects/</guid>
+      <description>This is an overview of some of the projects I&amp;rsquo;ve done.
+Games Hyper Heist itch.io
+Hardcore fast-paced cyberpunk platformer. Submission to SpeedJam 1 organized by ScoreSpace, ended up #3rd overall and #1 organizers choice.
+No-Gun Shotgun itch.io
+This is a 2d tower defense platformer. Submission to Mini Jam 117: Ghosts, the first game jam I ever attented. Made in Godot 3.5.
+Dungeon of Quake itch.io Github
+A retro FPS game written from scratch in Odin and Raylib.</description>
+    </item>
+    
+    <item>
+      <title>Dungeon of Quake Alpha</title>
+      <link>https://example.com/posts/dungeon-of-quake-alpha/</link>
+      <pubDate>Thu, 24 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/posts/dungeon-of-quake-alpha/</guid>
+      <description>Dungeon of Quake is a Quake-like FPS, using Odin and Raylib
+github
+DoQ is currently in Alpha version - there are still a lot of bugs to fix and features to add. The initial development took ~1 month.
+screenshots dqmake DQMake is a super-simple tool for editing DoQ maps.</description>
+    </item>
+    
+    <item>
+      <title>Reverse engineering Unity games</title>
+      <link>https://example.com/posts/reverse-engineering-unity-games/</link>
+      <pubDate>Thu, 24 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/posts/reverse-engineering-unity-games/</guid>
+      <description>Few months ago, I made a level editor mod for Shady Knight, an action game with lots of movement, parkour and combat. I thought I could share a few things related to reverse engineering the game and modding.
+accessing source code For a game, all of the gameplay source code is stored in \SomeGame\SomeGame_Data\Managed\Assembly-CSharp.dll. This is a dll (dynamically-linked library), which is generated from source files when the game is built.</description>
+    </item>
+    
+  </channel>
+</rss>
