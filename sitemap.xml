@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://jakubtomsu.github.io/</loc>
     <lastmod>2022-03-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/posts/</loc>
+    <loc>https://jakubtomsu.github.io/posts/</loc>
     <lastmod>2022-03-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/projects/</loc>
+    <loc>https://jakubtomsu.github.io/projects/</loc>
   </url><url>
-    <loc>https://example.com/posts/dungeon-of-quake-alpha/</loc>
+    <loc>https://jakubtomsu.github.io/posts/dungeon-of-quake-alpha/</loc>
     <lastmod>2022-03-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/posts/reverse-engineering-unity-games/</loc>
+    <loc>https://jakubtomsu.github.io/posts/reverse-engineering-unity-games/</loc>
     <lastmod>2022-03-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/categories/</loc>
+    <loc>https://jakubtomsu.github.io/categories/</loc>
   </url><url>
-    <loc>https://example.com/tags/</loc>
+    <loc>https://jakubtomsu.github.io/tags/</loc>
   </url>
 </urlset>
