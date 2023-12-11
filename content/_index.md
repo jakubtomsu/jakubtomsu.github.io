@@ -4,7 +4,9 @@ menu: "main"
 weight: 1
 ---
 
-Hey, I'm Jakub! I really like the technical side of gamedev. I do hobby engine and graphics programming, with focus on high-performance, data-oriented code. I use [Odin](https://odin-lang.org) and occasionally C/C++/ISPC for most of my personal projects.
+Hey, I'm Jakub! I really like the technical side of gamedev. I do hobby engine and graphics programming, with focus on high-performance, data-oriented code.
+
+I use [Odin](https://odin-lang.org) and occasionally C/C++/ISPC for most of my personal projects.
 
 ### Where you can find me
 - [itch.io](https://jakubtomsu.itch.io/).
@@ -13,7 +15,7 @@ Hey, I'm Jakub! I really like the technical side of gamedev. I do hobby engine a
 - [YouTube](https://youtube.com/@jakubtomsu)
 - I'm also on Mastodon at https://mastodon.gamedev.place/@jakubtomsu
 
-You can also find me on Discord where my username is `jakubtomsu` :)
+You can also find me on Discord where my username is `jakubtomsu`
 
 ### Blog Roll
 - [The ryg blog](https://fgiesen.wordpress.com/)
