@@ -1,0 +1,25 @@
+{{ range .Site.Menus.main.ByWeight }}
+  <a href="{{ relLangURL .URL }}">{{ .Name }}</a>
+{{ end }}
+{{ with .Site.Social.email }}
+<a href='mailto:{{ . }}?subject={{ i18n "email-subject" }}"{{ default $.Site.Title $.Page.Title }}"'>Email</a>
+{{ end }}
+<a href="{{ .Site.Language.Params.params.blogPath }}/index.xml">RSS</a>
+
+<!-- Convert this page's translations into a dict -->
+{{ $translations := dict }}
+{{ range .Translations }}
+  {{ $translations = merge $translations (dict .Language.Lang .) }}
+{{ end }}
+
+<!-- Create a link to every translation -->
+{{ range where .Site.Languages "Lang" "!=" .Page.Lang }}
+  {{ with (index $translations .Lang) }}
+    <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
+  {{ else }}
+    <!-- The complicated setup was necessary to make a grayed out link -->
+    {{ if not .Params.hideUntranslated }}
+      <a class="disabled" role="link" aria-disabled="true">{{ .LanguageName }}</a>
+    {{ end }}
+  {{ end }}
+{{ end }}

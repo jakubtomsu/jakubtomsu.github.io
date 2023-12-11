@@ -1,0 +1,6 @@
+[submodule "ink-free"]
+	path = themes/ink-free
+	url = https://github.com/chollinger93/ink-free
+[submodule "themes/hugo-bearcub"]
+	path = themes/hugo-bearcub
+	url = https://github.com/clente/hugo-bearcub
