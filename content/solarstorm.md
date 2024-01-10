@@ -12,4 +12,4 @@ Solar Storm is a classic turn-based artillery shooter. You are a tank pilot, fig
 
 The game is made in the [Odin](https://odin-lang.org) programming language, with a custom game engine built with the help of [Sokol](https://github.com/floooh/sokol).
 
-[Wishlist on Steam!](https://store.steampowered.com/app/2754920/Solar_Storm/)
+## [Wishlist on Steam!](https://store.steampowered.com/app/2754920/Solar_Storm/)
