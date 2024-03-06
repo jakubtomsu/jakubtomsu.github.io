@@ -81,6 +81,7 @@ for &ch, i in chars {
     ch.pos.y += sin(time_passed() + f32(i)) // animate up and down
 }
 ```
+This code runs every frame, and updates the character instances right before being submitted to the GPU and displayed. There is state in the background, but the API is fully immediate-mode. _immediate-mode != stateless_
 
 
 ## World pass
