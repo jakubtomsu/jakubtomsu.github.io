@@ -7,11 +7,6 @@ defaultContentLanguage = "en"
 # Generate a nice robots.txt for SEO
 enableRobotsTXT = true
 
-# Your name. For more information on why this must be a list, see
-# https://discourse.gohugo.io/t/site-author-usage/31459/8
-[author]
-  name = "Jakub Tomšů"
-
 # Setup syntax highlighting without inline styles. For more information about
 # why you'd want to avoid inline styles, see
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src#unsafe_inline_styles
@@ -37,8 +32,11 @@ enableRobotsTXT = true
       madeWith = "Made with [Bear Cub](https://github.com/clente/hugo-bearcub)"
 
 [params]
+  [author]
+    name = "Jakub Tomšů"
+
   # The description of your website
-  description = "Gamedev, programming and other tech stuff"
+  description = "Gamedev tech blog"
 
   # The path to your favicon
   favicon = "cat.jpg"

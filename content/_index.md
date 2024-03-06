@@ -4,7 +4,7 @@ menu: "main"
 weight: 1
 ---
 
-Hey, I'm Jakub! I really like the technical side of gamedev. I do hobby engine and graphics programming, with focus on high-performance, data-oriented code.
+Hey, I'm Jakub! I'm interested in the technical side of gamedev. I do game and engine programming. I like high-performance  data-oriented code.
 
 I use [Odin](https://odin-lang.org) and occasionally C/C++/ISPC for most of my personal projects.
 

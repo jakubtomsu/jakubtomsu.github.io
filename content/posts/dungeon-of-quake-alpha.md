@@ -3,7 +3,7 @@ title: "Dungeon of Quake Alpha"
 date: 2022-03-24
 ---
 
-Dungeon of Quake is a Quake-like FPS, using [Odin](https://odin-lang.org/) and [Raylib](https://www.raylib.com/)
+Dungeon of Quake is a Quake-like FPS, using [Odin](https://odin-lang.org) and [Raylib](https://www.raylib.com/)
 
 [`github`](https://github.com/jakubtomsu/dungeon-of-quake)
 

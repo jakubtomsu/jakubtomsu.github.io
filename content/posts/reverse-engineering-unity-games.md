@@ -16,7 +16,7 @@ since it's also capable of compiling C# code (this means you can just change cod
 
 
 ## injecting custom code
-It is of course possible to develop an entire mod by editing the `Assembly-CSharp.dll`, but it's easier to just create it separately and just load it at startup time.
+It is of course possible to develop an entire mod by editing the `Assembly-CSharp.dll`, but it's easier to just create it separately and load it at startup time.
 This way your game can support multiple mods at the same time, because games can have one common loader for all mods.
 
 If you want to inject the code yourself, here is a simple example how to load and run a C# dll:
@@ -33,7 +33,7 @@ foreach(Type type in Assembly.LoadFile("some dll path").GetTypes()) {
 	}
 }
 ```
-This code sould ideally be placed in some method that runs *as early as possible*.
+This code sould be ideally placed in some method that runs *as early as possible*.
 Probably `Awake` function on a component somewhere on the first loading screen, main menu, etc. is good enough.
 
 ## inspecting the renderer

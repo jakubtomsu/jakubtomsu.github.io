@@ -16,7 +16,7 @@ Hardcore fast-paced cyberpunk platformer. Submission to SpeedJam 1 organized by 
 ![gif](https://img.itch.zone/aW1hZ2UvMTkyOTU1Ny8xMTM4NDU2My5naWY=/original/eykWQm.gif)
 
 ## No-Gun Shotgun
-[itch.io]((https://jakubtomsu.itch.io/nogun-shotgun))
+[itch.io](https://jakubtomsu.itch.io/nogun-shotgun)
 
 This is a 2d tower defense platformer. Submission to Mini Jam 117: Ghosts, the first game jam I ever attented. Made in Godot 3.5.
 
@@ -63,7 +63,7 @@ Top-down game set in a sci-fi warehouse, where you use boxes to fight off enemie
 STB-style single-header C library for cross platform virtual memory management.
 
 ## 3d ISCP software renderer
-[Github]((https://github.com/jakubtomsu/ispc-3d-renderer))
+[Github](https://github.com/jakubtomsu/ispc-3d-renderer)
 
 Simple 3d rasterizer based on fgeisen's blog [Triangle rasterization in practice](https://fgiesen.wordpress.com/2013/02/08/triangle-rasterization-in-practice/), written in ISPC.
 
