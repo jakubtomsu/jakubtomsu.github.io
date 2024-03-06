@@ -163,13 +163,15 @@ Finally, the outlines are applied. Each pixel compares the depth value to it's n
 
 Then all text character, icons, sprites and UI rectangles get drawn on top of the postprocessed image. There is nothing fancy about this step, but again, everything is drawn with a couple of draw calls.
 
+The UI, icons and text rendering are a big topic on their own, so I'll leave that for later. I'm also considering switching from my own custom text rendeing to FontStash.
+
 ![screenspace pass](screenspace.png)
 
 ## Display pass
 
 And that’s it for the rendering! The last render pass just draws the final image to the actual swapchain texture.
 
-The renderer spends less than 100 microseconds on the CPU submitting the commands. At the time of writing, it takes about 4ms on a RTX2060 to draw everything on the GPU, which is mostly bottlenecked by a few naively written shaders. There is a lot of room for optimizations left on the GPU side!
+The renderer spends up to 50 microseconds on the CPU submitting the commands. At the time of writing, it takes around 100 microseconds on a RTX2060 to actually draw everything.
 
 This is a trace using Spall:
 ![cpu trace](cpu_trace.png)
