@@ -4,7 +4,7 @@ date: 2024-03-06
 description: "A peek behind the curtain of the renderer implementation in Solar Storm using sokol_gfx"
 ---
 
-![gif](/solar_storm.gif)
+![gif](solar_storm.gif)
 
 Solar Storm is an upcoming tactical sci-fi artillery game. It’s a solo project I’ve been writing in a custom engine for the last ~4 months. It’s inspired by local multiplayer games from the 90s like Scorched Earth (1991) and Worms (1995). The entire game is written from scratch in the [Odin programming language](https://odin-lang.org).
 
