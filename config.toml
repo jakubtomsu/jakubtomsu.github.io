@@ -1,7 +1,7 @@
 # Basic config
 baseURL = "https://jakubtomsu.github.io"
 theme = "hugo-bearcub"
-copyright = "Jakub Tomšů (CC BY 4.0)"
+copyright = "Jakub Tomšů"
 defaultContentLanguage = "en"
 
 # Generate a nice robots.txt for SEO
