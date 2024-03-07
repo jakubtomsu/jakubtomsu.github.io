@@ -16,8 +16,8 @@ Similar to libraries like SDL2 or GLFW, `sokol_app` provides a cross-platform AP
 
 So let’s talk about the Solar Storm rendering a bit. The entire renderer is built on `sokol_gfx`, with custom shaders, render passes, and all that fun stuff.
 
-Here is the final result we're working towards:
-![screenspace pass](screenspace.png)
+Here is a sneak peek at the different steps of the rendering process:
+![screenspace pass](steps.gif)
 
 # Shaders
 
