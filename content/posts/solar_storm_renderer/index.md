@@ -1,7 +1,7 @@
 ---
 title: "Solar Storm Rendering"
 date: 2024-03-06
-description: "A peek behind the curtain of the renderer implementation in Solar Storm using sokol_gfx"
+description: "An in-depth look at the rendering of Solar Storm using sokol_gfx and Odin"
 ---
 
 ![gif](solar_storm.gif)
