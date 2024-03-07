@@ -8,17 +8,18 @@ description: "A peek behind the curtain of the renderer implementation in Solar 
 
 Solar Storm is an upcoming tactical sci-fi artillery game. It’s a solo project I’ve been writing in a custom engine for the last ~4 months. It’s inspired by local multiplayer games from the 90s like Scorched Earth (1991) and Worms (1995). The entire game is written from scratch in the [Odin programming language](https://odin-lang.org).
 
-The game engine is built with the help of [Sokol](https://github.com/floooh/sokol). It’s a set of STB-style cross-platform libraries for C/C++, with an official support for Odin as well as some other languages. In particular, I use sokol_app for windowing and interfacing with the OS, and sokol_gfx as an rendering API abstraction. 
+### [Play Solar Storm on Steam](https://store.steampowered.com/app/2754920/Solar_Storm/) and [Join our Discord!](https://discord.com/invite/wn5jMMMYe4)
 
-[Play Solar Storm on Steam](https://store.steampowered.com/app/2754920/Solar_Storm/) and [Join our Discord!](https://discord.com/invite/wn5jMMMYe4)
+The game engine is built with the help of [Sokol](https://github.com/floooh/sokol). It’s a set of STB-style cross-platform libraries for C/C++, with an official support for Odin as well as some other languages. In particular, I use sokol_app for windowing and interfacing with the OS, and sokol_gfx as an rendering API abstraction.
 
+Similar to libraries like SDL2 or GLFW, `sokol_app` provides a cross-platform API for interacting with the OS. But like all other sokol modules, it's just a single, lightweight C/C++ header file, which makes it really nice to work with.
 
 So let’s talk about the Solar Storm rendering a bit. The entire renderer is built on `sokol_gfx`, with custom shaders, render passes, and all that fun stuff.
 
 Here is the final result we're working towards:
 ![screenspace pass](screenspace.png)
 
-### Shaders
+# Shaders
 
 The shaders are written in Sokol’s flavor of GLSL, which has a cross-platform shader compiler called sokol-shdc. Usually writing shaders for multiple rendering APIs is a lot of pain. But sokol-shdc uses libraries like GLSLang, SPIRV-Tools, SPIRV-Cross to transpile them for the appropriate platform.
 
@@ -57,7 +58,7 @@ void main() {
 @program foo vs fs
 ```
 
-### Immediate-mode APIs are amazing
+# Immediate-mode APIs are amazing
 
 A core philosophy of the renderer is to do as much as possible with [immediate-mode APIs](https://caseymuratori.com/blog_0001), and group rendering operations so Instancing is trivial.
 
@@ -84,16 +85,16 @@ for &ch, i in chars {
 This code runs every frame, and updates the character instances right before being submitted to the GPU and displayed. There is state in the background, but the API is fully immediate-mode. _immediate-mode != stateless_
 
 
-## World pass
+# World pass
 The terrain is drawn as a single quad. A shader which reads from the terrain SDF texture and a color texture and does the shading. Explaining the terrain in-depth is out of scope for this article, let's do that another time...
 
 There is also a shader for rendering the background and another one for wind. The background shader draws stars using perlin noise raised to a very high power. The wind is also just perlin noise, but this time it’s stretched horizontally and has some distortion to add some _wiggle_.
 
 ![environment](env.png)
 
-All world-space elements are rendered into a custom render target. It's a texture with single channel per pixel in the R8_UNORM format. This pass also uses a depth buffer for odrdering objects instead of sorting. It's essentially free on modern hardware and it makes things easier.
+All world-space elements are rendered into a custom render target. It's a texture with single channel per pixel in the R8_UNORM format. This pass also uses a depth buffer for ordering objects instead of sorting. It's essentially free on modern hardware and it makes things easier.
 
-#### Shapes
+## Shapes
 
 All of the other things in the game are rendered using primitive shapes. Every frame, the game pushes shape instances to instance buffers, which then get uploaded to the GPU memory once it’s time to render them. This uses an immediate API in the form of `draw_shape` procedure.
 
@@ -171,7 +172,7 @@ Here is an example of one drawcall, in this case hexagons:
 That's it for the world render pass, here is the result so far:
 ![final texture](world_final_tex.png)
 
-## Postprocess pass
+# Postprocess pass
 
 In the post processing pass, a shader takes the single channel world texture and does all post processing. That includes water reflections, palettization and outlines (in order).
 
@@ -186,7 +187,7 @@ Finally, the outlines are applied. Each pixel compares the depth value to it's n
 
 ![postprocessed texture](postprocessed.png)
 
-## Screenspace pass
+# Screenspace pass
 
 Then all text character, icons, sprites and UI rectangles get drawn on top of the postprocessed image. There is nothing fancy about this step, but again, everything is drawn with just a couple of draw calls. This pass uses the depth buffer for ordering UI and text elements.
 
@@ -194,11 +195,11 @@ The UI, icons and text rendering are a big topic on their own, so I'll leave tha
 
 ![screenspace pass](screenspace.png)
 
-## Display pass
+# Display pass
 
 And that’s it for the rendering! The last render pass just draws the final image to the actual swapchain texture, which gets displayed on your monitor.
 
-## Conclusion
+# Conclusion
 
 The renderer spends up to 50 microseconds on the CPU submitting the commands. At the time of writing, it takes around 100 microseconds on a RTX2060 to actually draw everything.
 
