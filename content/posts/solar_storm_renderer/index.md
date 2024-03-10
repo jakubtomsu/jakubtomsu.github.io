@@ -203,8 +203,13 @@ And that’s it for the rendering! The last render pass just draws the final ima
 
 The renderer spends up to 50 microseconds on the CPU submitting the commands. At the time of writing, it takes around 100 microseconds on a RTX2060 to actually draw everything.
 
-This is a trace using Spall:
+This is CPU profiler trace using Spall:
+
 ![cpu trace](cpu_trace.png)
+
+Here is another profiler trace, this time from the GPU using PIX:
+
+![gpu trace](pix.png)
 
 And here is the entire renderdoc capture of the game. The entire thing is just a couple of draw calls and buffer uploads.
 
