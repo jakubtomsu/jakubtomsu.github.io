@@ -5,6 +5,8 @@ weight: 3
 description: "Solar Storm is a turn-based scifi artillery game with local-multiplayer"
 ---
 
+_NOTE: this page is work-in-progress!_
+
 ## Links
 - [Steam](https://store.steampowered.com/app/2754920/Solar_Storm/)
 - [Discord Server](https://discord.com/invite/wn5jMMMYe4)
@@ -50,6 +52,7 @@ There is a wide arsenal of powerful weapons, which can help you out in any circu
 
 ## Credits
 Jakub Tomšů - Game Design, Programming and Art
+
 Dylan Siebert - Soundtrack
 
 ## Technology
