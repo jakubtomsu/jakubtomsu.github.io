@@ -1,14 +1,19 @@
 ---
-title: "Solar Storm Press Kit"
-date: 2024-03-13
-description: "Solar Storm Press Kit"
-draft: true
+title: "Solar Storm"
+menu: "main"
+weight: 3
+description: "Solar Storm is a turn-based scifi artillery game with local-multiplayer"
 ---
 
-# Solar Storm Press Kit
+## Links
+- [Steam](https://store.steampowered.com/app/2754920/Solar_Storm/)
+- [Discord Server](https://discord.com/invite/wn5jMMMYe4)
+- [YouTube](https://youtube.com/@jakubtomsu)
+- [Dev Twitter](https://twitter.com/jakubtomsu_)
+- [Handmade Network](https://handmade.network/p/485/solar-storm/)
 
 ## About
-Solar Storm is a turn-based scifi artillery game.
+Solar Storm is a turn-based scifi artillery game, inspired by 90s local-multiplayer games like Scorched Earth and Worms.
 
 ### Fully Destructible Procedural Maps
 Each battle takes place in an unique, procedurally generated arena. There are a number of Biomes, which have very different characteristics.
