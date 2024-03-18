@@ -7,55 +7,63 @@ description: "Solar Storm is a turn-based scifi artillery game with local-multip
 
 _NOTE: this page is work-in-progress!_
 
-## Links
+# Links
 - [Steam](https://store.steampowered.com/app/2754920/Solar_Storm/)
 - [Discord Server](https://discord.com/invite/wn5jMMMYe4)
 - [YouTube](https://youtube.com/@jakubtomsu)
 - [Dev Twitter](https://twitter.com/jakubtomsu_)
 - [Handmade Network](https://handmade.network/p/485/solar-storm/)
 
-## About
+# About
 Solar Storm is a turn-based scifi artillery game, inspired by 90s local-multiplayer games like Scorched Earth and Worms.
 
-### Fully Destructible Procedural Maps
-Each battle takes place in an unique, procedurally generated arena. There are a number of Biomes, which have very different characteristics.
+## Fully Destructible Procedural Maps
+Each battle takes place in an unique, procedurally generated arena. There are a number of Biomes, where each one of them has unique characteristics.
 
-### Powerful Weapons of Mass Destruction
-There is a wide arsenal of powerful weapons, which can help you out in any circumstances.
-
-### Key Features, Summarized:
-- 30+ Biomes, each with unique procedural maps
-- 40+ powerful Weapons
+## Powerful Weapons of Mass Destruction
+There is a wide arsenal of powerful weapons, which can help you out in any circumstances. 
 - **Weapon Powerups** which significantly change the weapon
 - You can choose a **Weapon Mode** each turn. This impacts whether a projectile explodes on impact, bounces, or drills through the terrain.
-- Local Multiplayer
-- Play against Bots
+
+## Disasters
+Watch out for disaster! Meteorites might be falling from the sky out of nowhere!
+
+## Key Features, Summarized:
+- 30+ Biomes, each with unique procedural maps
+- Deep weapon system with 40+ powerful Weapons
+- Local Multiplayer against players or bots
 - Free for All and Team Deatchmatch game modes
+- Unexpected Disasters
 
-## Videos
-![demo trailer]()
 
-![alpha trailer]()
-
-## Images
-![logo]()
-![logo_no_globe]()
-
-![gif]()
-![gif]()
-
-![screen]()
-![screen]()
-![screen]()
-![screen]()
-![screen]()
-
-## Credits
+# Credits
 Jakub Tomšů - Game Design, Programming and Art
 
 Dylan Siebert - Soundtrack
 
-## Technology
+# Technology
 The entire game is written in the [Odin programming language](https://odin-lang.org) and uses a custom game engine built on [Sokol](https://github.com/floooh/sokol).
 
 The goal is to ensure high quality and good performance, even on low power devices.
+
+# Videos
+Demo Trailer
+
+{{< youtube id="5_ru0hrqeZs" >}}
+
+# Logos
+![logo](logo.png)
+![logo_no_globe](logo_no_globe.png)
+
+# Gifs
+![gif](gif0.gif)
+![gif](gif1.gif)
+![gif](gif2.gif)
+
+# Screenshots
+![screenshot](screenshot0.png)
+![screenshot](screenshot1.png)
+![screenshot](screenshot2.png)
+![screenshot](screenshot3.png)
+![screenshot](screenshot4.png)
+![screenshot](screenshot5.png)
