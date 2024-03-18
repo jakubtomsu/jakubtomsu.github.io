@@ -5,7 +5,9 @@ weight: 3
 description: "Solar Storm is a turn-based scifi artillery game with local-multiplayer"
 ---
 
-_NOTE: this page is work-in-progress!_
+### Solar Storm Press Kit
+
+![logo](solar_storm.gif)
 
 # Links
 - [Steam](https://store.steampowered.com/app/2754920/Solar_Storm/)
