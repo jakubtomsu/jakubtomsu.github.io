@@ -17,15 +17,15 @@ _NOTE: this page is work-in-progress!_
 # About
 Solar Storm is a turn-based scifi artillery game, inspired by 90s local-multiplayer games like Scorched Earth and Worms.
 
-## Fully Destructible Procedural Maps
+### Fully Destructible Procedural Maps
 Each battle takes place in an unique, procedurally generated arena. There are a number of Biomes, where each one of them has unique characteristics.
 
-## Powerful Weapons of Mass Destruction
+### Powerful Weapons of Mass Destruction
 There is a wide arsenal of powerful weapons, which can help you out in any circumstances. 
 - **Weapon Powerups** which significantly change the weapon
 - You can choose a **Weapon Mode** each turn. This impacts whether a projectile explodes on impact, bounces, or drills through the terrain.
 
-## Disasters
+### Disasters
 Watch out for disaster! Meteorites might be falling from the sky out of nowhere!
 
 ## Key Features, Summarized:
