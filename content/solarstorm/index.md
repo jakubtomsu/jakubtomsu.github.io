@@ -38,9 +38,9 @@ Watch out for disaster! Meteorites might be falling from the sky out of nowhere!
 - Spanish
 
 ## Price
-- $7.99
-- €7.79
-- £6.69
+- $6.99
+- €6,89
+- £5.89
 
 # Contact and Links
 - Business Inquiries: jakubtomsu@proton.me
