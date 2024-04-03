@@ -34,13 +34,24 @@ Watch out for disaster! Meteorites might be falling from the sky out of nowhere!
 
 ## Supported Languages
 - English
-- Czech
-- Spanish
+- Simplified Chinese - 简体中文
+- Spanish - Deutsch
+- German - Čeština
+- Czech - Español
+- Greek - Ελληνικά
+- Russian - Русский
+- Swedish - Svenska
+- Croatian - Hrvatski
+- Portuguese - Português
+- Finnish - Suomi
+- Turkish - Türkçe
+- Dutch - Nederlands
 
 ## Price
 - $6.99
 - €6,89
 - £5.89
+- 170 CZK
 
 # Contact and Links
 - Business Inquiries: jakubtomsu@proton.me
