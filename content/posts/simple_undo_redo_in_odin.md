@@ -25,7 +25,7 @@ Level :: struct {
     detail_cells: Level_Detail_Cells,
 }
 
-Level_Cells :: [LEVEL_BOUNDS_X][LEVEL_BOUNDS_Y][LEVEL_BOUNDS_Z]Cell // Cell is an u8 enum
+Level_Cells :: [LEVEL_BOUNDS_X][LEVEL_BOUNDS_Y][LEVEL_BOUNDS_Z]Cell // Cell is a u8 enum
 
 Level_Detail_Cells :: [LEVEL_BOUNDS_X][LEVEL_BOUNDS_Y][LEVEL_BOUNDS_Z]Detail_Cell
 
