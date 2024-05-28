@@ -86,7 +86,7 @@ if input_pressed(.Mouse_Left) {
 ```
 
 ## Ctrl+Z and Ctrl+Shift+Z
-This is all I need to implement the actual undo/redo functionality. This logic the same as in rxi's article. Pop from one buffer, and before applying the data push the current state to the other buffer.
+This is all I need to implement the actual undo/redo functionality. This logic is the same as in rxi's article. Pop from one buffer, and before applying the data push the current state to the other buffer.
 
 ```odin
 block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
