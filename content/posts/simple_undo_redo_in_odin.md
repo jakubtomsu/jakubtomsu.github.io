@@ -52,9 +52,9 @@ Editor_Undo_Item :: union {
 
 This stores a change to a part of a level. It's a [tagged union](https://odin-lang.org/docs/overview/#unions), so the total size is the size of the largest item.
 
-This allows me to easily store a change to any part of a level. That's why I separated the level into the chunks in the previous step, it makes it easier to organize changes into groups. In theory you _could_ save the entire level on every change. But this is almost as simple and can save a lot of memory.
+This allows me to easily store a change to any part of a level. That's why I separated the level into chunks in the previous step, it makes it easier to organize changes into groups. In theory you _could_ save the entire level on every change. But this is almost as simple and can save a lot of memory.
 
-This way every change takes up memory for the "worst-case", which might seem bad at first but it's actually completely fine. In my case one Undo item is 4 kilobytes, which is almost nothing these days. This system also scales really well in cases when you modify _most or all_ of the cells, and doesn't create unexpected spikes. But the reasons for focusing on worst-case computation is a big topic, let's leave that for another blog post :)
+This way every change takes up memory for the "worst-case", which might seem bad at first but it's actually completely fine. In my case one undo item is 4 kilobytes, which is almost nothing these days. This system also scales really well in cases where you modify _most or all_ of the cells, and doesn't create unexpected spikes. But the reasons for focusing on worst-case computation is a big topic, let's leave that for another blog post :)
 
 ## History Buffers
 Let's define a way to store the actual edits within our editor state.
@@ -68,7 +68,7 @@ Editor :: struct {
 }
 ```
 
-The editor stores two queues (ring buffers) of edits, one for Undo and one for Redo. The reason why I use a queue is to have the ability to "force push" an edit at the end. If I used a regular array/stack, I would need to shift all other items down by one slot. The Queue I use comes from my own small library for static datastructures, but you could use something like `core:container/queue` as well.
+The editor stores two queues (ring buffers) of edits, one for Undo and one for Redo. The reason why I use a queue is to have the ability to "force push" an edit at the end. If I used a regular array/stack, I would need to shift all other items down by one slot. The queue I use comes from my own small library for static datastructures, but you could use something like `core:container/queue` as well.
 
 ```odin
 editor_undo_push :: proc(ed: ^Editor, item: Editor_Undo_Item) {
@@ -77,7 +77,7 @@ editor_undo_push :: proc(ed: ^Editor, item: Editor_Undo_Item) {
 }
 ```
 
-This is the procedure for pushing save points before any edits. I pass the state which will be changed, and then perform the change. Here is an example of placing Wall blocks on a mouse click:
+This is the procedure for pushing save points before any edits. I pass the state which will be changed, and then perform the change. Here is an example of placing wall blocks on a mouse click:
 
 ```odin
 if input_pressed(.Mouse_Left) {
@@ -94,8 +94,8 @@ This is all I need to implement the actual undo/redo functionality. This logic i
 block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
     modifiers: bit_set[Input_Modifier] = input_modifiers_down(inp)
     
-    // Pop the data from a change buffer depending on the operation.
-    // Breaks out of this entire scope if it's empty.
+    // Pop the data from a change buffer depending on the operation
+    // Breaks out of this entire scope if it's empty
     change: Editor_Undo_Item
     switch modifiers {
     case {.Left_Control}:
@@ -131,6 +131,6 @@ block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
 }
 ```
 
-And that's it! Turns out this entire system is not many lines of code at all, and is efficient even when you use worst-case-sized statically allocated data structures. That said, it's not a "one size fits all" method. If you have gigantic scenes you probably need to look into other approaches (maybe XOR and RLE compressed delta states? LZ4? idk).
+And that's it! Turns out this entire system is not many lines of code at all, and is efficient even when you use worst-case-sized statically allocated data structures. That said, it's not a one-size-fits-all method. If you have gigantic scenes you probably need to look into other approaches (maybe XOR and RLE compressed delta states? LZ4? idk).
 
 But this is fine for basically anything an indie developer might need in 99% of cases. Hope this helps, thank you for reading!
