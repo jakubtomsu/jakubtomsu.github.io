@@ -1,7 +1,7 @@
 ---
 title: "Simple Undo/Redo system in Odin"
 date: 2024-05-28
-description: "Grug brained approach to level editor history"
+description: "A Grug Brained approach to level editor history"
 ---
 
 This is a short blog post about something I've had to implement recently: editor undo/redo functionality.
