@@ -10,7 +10,7 @@ Few weeks ago I started working on a new project, it's a 3d FPS game inspired by
 The world is a 16x16x16 uniform grid of blocks, and it loops infinitely. Here is a clip of the game prototype:
 {{< twitter user="jakubtomsu_" id="1794059547146936800" >}}
 
-This clip uses procedurally generated levels. Those are cool, but don't have that much structure and interesting stuff going on. So I quickly decied I need to hand-craft levels fir them to reach the full potential.
+This clip uses procedurally generated levels. Those are cool, but don't have that much structure and interesting stuff going on. So I quickly decied I need to hand-craft levels for them to reach the full potential.
 
 So I wrote a simple level editor. It was surprisingly quick, I had all of the basic functionality implemented within a few couple of hours. One of the problems I had to solve was undo/redo system, which seems very challenging but it doesn't actually have to be. I found a very simple way to structure the code to make the implementation trivial.
 
