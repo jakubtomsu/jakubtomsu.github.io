@@ -8,6 +8,13 @@ This is an overview of some of the projects I've done.
 
 # Games
 
+## Solar Storm
+[Steam](https://store.steampowered.com/app/2754920/Solar_Storm/)
+
+My first commercial game, and the first game I realeased on Steam. I made it in 4 months in a custom game engine built with Odin and Sokol.
+
+![gif](/solarstorm/solar_storm.gif)
+
 ## Hyper Heist
 [itch.io](https://jakubtomsu.itch.io/hyperheist)
 
