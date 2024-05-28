@@ -12,7 +12,7 @@ The world is a 16x16x16 uniform grid of blocks, and it loops infinitely. Here is
 
 This clip uses procedurally generated levels. Those are cool, but don't have that much structure and interesting stuff going on. So I quickly decied I need to hand-craft levels fir them to reach the full potential.
 
-So I wrote a simple level editor. It was surprisingly quick, I had all of the basic functionality implemented in a couple of hours. One of the problems I had to solve was undo/redo system, which seems very challenging but it doesn't actually have to be. I found a very simple way to structure the code to make the implementation trivial.
+So I wrote a simple level editor. It was surprisingly quick, I had all of the basic functionality implemented within a few couple of hours. One of the problems I had to solve was undo/redo system, which seems very challenging but it doesn't actually have to be. I found a very simple way to structure the code to make the implementation trivial.
 
 My implementation is inspired by rxi's [Simple Undo System](https://rxi.github.io/a_simple_undo_system.html) and Dennis Gustaffson's [Undo for Lazy Programmers](https://blog.voxagon.se/2018/07/10/undo-for-lazy-programmers.html)
 
