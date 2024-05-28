@@ -17,7 +17,7 @@ So I wrote a simple level editor. It was surprisingly quick, I had all of the ba
 My implementation is inspired by rxi's [Simple Undo System](https://rxi.github.io/a_simple_undo_system.html) and Dennis Gustaffson's [Undo for Lazy Programmers](https://blog.voxagon.se/2018/07/10/undo-for-lazy-programmers.html)
 
 ## Level Representation
-First, let's define the data for our level. In my case it's very simple, but it's easy to extent if necessary.
+First, let's define the data for our level. In my case it's very simple, but it's easy to extend if necessary.
 ```odin
 Level :: struct {
     using info:   Level_Info,
