@@ -4,16 +4,21 @@ date: 2024-05-28
 description: "Grug brained approach to level editor history"
 ---
 
-This is a short blog post about something I've had to implement recently: editor undo/redo functionality. Few weeks ago I started working on a new project, it's a 3d FPS game inspired by quake and other 90's shooters.
-The world is a 16x16x16 uniform grid of blocks, and it loops infinitely. I considered procedurally generating the levels, but quickly decied I need to hand-craft them to reach the full potential.
+This is a short blog post about something I've had to implement recently: editor undo/redo functionality.
 
-So I wrote a small editor. It was surprisingly quick, I had all of the basic functionality implemented in a couple of hours. One of the problems I had to solve was undo/redo system, which seems very challenging but it doesn't actually have to be. I found a very simple way to structure the code to make the implementation trivial.
+Few weeks ago I started working on a new project, it's a 3d FPS game inspired by quake and other 90's shooters.
+The world is a 16x16x16 uniform grid of blocks, and it loops infinitely. Here is a clip of the game prototype:
+{{< twitter user="jakubtomsu_" id="1794059547146936800" >}}
+
+This clip uses procedurally generated levels. Those are cool, but don't have that much structure and interesting stuff going on. So I quickly decied I need to hand-craft levels them to reach the full potential.
+
+So I wrote a simple level editor. It was surprisingly quick, I had all of the basic functionality implemented in a couple of hours. One of the problems I had to solve was undo/redo system, which seems very challenging but it doesn't actually have to be. I found a very simple way to structure the code to make the implementation trivial.
 
 My implementation is inspired by rxi's [Simple Undo System](https://rxi.github.io/a_simple_undo_system.html) and Dennis Gustaffson's [Undo for Lazy Programmers](https://blog.voxagon.se/2018/07/10/undo-for-lazy-programmers.html)
 
 ## Level Representation
 First, let's define the data for our level. In my case it's very simple, but it's easy to extent if necessary.
-```cpp
+```odin
 Level :: struct {
     using info:   Level_Info,
     cells:        Level_Cells,
@@ -32,12 +37,12 @@ Level_Info :: struct {
 
 The goal here is to organize the level representation into a bunch of "chunks" (mostly by size and importance). All miscellaneous level metadata goes into `Level_Info` but other big chunks of data are a separate member.
 
-Note: this assumes all of your level data is statically allocated and trivially copyable. I do this for _all_ of my data anyway, I think there isn't a reason to use any dynamic allocation for the use cases I care about. I might write a blog about this another time, it's a very useful way to think about data.
+Note: this assumes all of your level data is statically allocated and trivially copyable. I do this for _all_ of my data anyway, I think there isn't a reason to use any dynamic allocation for the use cases I care about. I might write a blog about this another time, it's a very useful way to think about data and not many people talk about it. It's always borrow checker/RAII/Arenas/Custom Allocators...
 
 ## Save Points
 Now, let's define a way to store a single "change" to the data. This acts as a save point the user can go back to.
 
-```cpp
+```odin
 Editor_Undo_Item :: union {
     Level_Info,
     Level_Cells,
@@ -52,10 +57,9 @@ This allows me to easily store a change to any part of a level. That's why I sep
 ## History Buffers
 Let's define a way to store the actual edits within our editor state.
 
-```cpp
+```odin
 Editor :: struct {
-    // current level data
-    level: Level,
+    level: Level, // current level data
     undo:  Queue(2048, Editor_Undo_Item),
     redo:  Queue(2048, Editor_Undo_Item),
     // other editor state...
@@ -64,7 +68,7 @@ Editor :: struct {
 
 The editor stores two queues (ring buffers) of edits, one for Undo and one for Redo. The reason why I use a queue is to have the ability to "force push" an edit at the end. If I used a regular array/stack, I would need to shift all other items down by one slot. The Queue I use comes from my own small library for static datastructures, but you could use something like `core:container/queue` as well.
 
-```cpp
+```odin
 editor_undo_push :: proc(ed: ^Editor, item: Editor_Undo_Item) {
     // Makes sure the item is always pushed back into the queue, even if it's full.
     queue_push_back_force(&ed.undo, item)
@@ -73,9 +77,10 @@ editor_undo_push :: proc(ed: ^Editor, item: Editor_Undo_Item) {
 
 This is the procedure for pushing save points before any edits. I pass the state which will be changed, and then perform the change. Here is an example of placing Wall blocks on a mouse click:
 
-```cpp
+```odin
 if input_pressed(.Mouse_Left) {
     editor_undo_push(ed, ed.level.cells)
+    // Do any modifications to level.cells...
     ed.level.cells[cursor.x][cursor.y][cursor.z] = .Wall
 }
 ```
@@ -83,7 +88,7 @@ if input_pressed(.Mouse_Left) {
 ## Ctrl+Z and Ctrl+Shift+Z
 This is all I need to implement the actual undo/redo functionality. This logic the same as in rxi's article. Pop from one buffer, and before applying the data push the current state to the other buffer.
 
-```cpp
+```odin
 block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
     modifiers := input_modifiers_down(inp)
     
@@ -100,27 +105,26 @@ block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
     }
     
     // Prepare a save point for the current data
+    // Write the change to the current state
     prev: Editor_Undo_Item
-    switch _ in change {
-    case Level_Info:         prev = ed.level.meta
-    case Level_Cells:        prev = ed.level.cells
-    case Level_Detail_Cells: prev = ed.level.detail_cells
+    switch v in change {
+    case Level_Info:
+        prev = ed.level.info
+        ed.level.info = v
+    case Level_Cells:
+        prev = ed.level.cells
+        ed.level.cells = v
+    case Level_Detail_Cells
+        prev = ed.level.detail_cells
+        ed.level.detail_cells = v
     }
     
     // Push the current data into the _other_ buffer
-    // (undo->redo, redo->undo)
     switch modifiers {
     case {.Left_Control}:
         queue_push_back_force(&ed.redo, prev)
     case {.Left_Control, .Left_Shift}:
         queue_push_back_force(&ed.undo, prev)
-    }
-    
-    // Write the change to the current state
-    switch v in change {
-    case Level_Info:         ed.level.info = v
-    case Level_Cells:        ed.level.cells = v
-    case Level_Detail_Cells: ed.level.detail_cells = v
     }
 }
 ```
