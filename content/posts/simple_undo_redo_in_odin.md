@@ -54,6 +54,8 @@ This stores a change to a part of a level. It's a [tagged union](https://odin-la
 
 This allows me to easily store a change to any part of a level. That's why I separated the level into the chunks in the previous step, it makes it easier to organize changes into groups. In theory you _could_ save the entire level on every change. But this is almost as simple and can save a lot of memory.
 
+This way every change takes up memory for the "worst-case", which might seem bad at first but it's actually completely fine. In my case one Undo item is 4 kilobytes, which is almost nothing these days. This system also scales really well in cases when you modify _most or all_ of the blocks, and doesn't create unexpected spikes. But the reasons for focusing on worst-case computation is a big topic, let's leave that for another blog post :)
+
 ## History Buffers
 Let's define a way to store the actual edits within our editor state.
 
