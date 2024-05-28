@@ -92,7 +92,7 @@ This is all I need to implement the actual undo/redo functionality. This logic i
 
 ```odin
 block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
-    modifiers := input_modifiers_down(inp)
+    modifiers: bit_set[Input_Modifier] = input_modifiers_down(inp)
     
     // Pop the data from a change buffer depending on the operation.
     // Breaks out of this entire scope if it's empty.
