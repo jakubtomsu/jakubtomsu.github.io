@@ -8,7 +8,7 @@ Hey, I'm Jakub! I'm interested in software development and gamedev. I do game an
 
 **Join my [Discord Server](https://discord.com/invite/wn5jMMMYe4)!**
 
-I made Solar Storm, a sci-fi artillery game [Solar Storm](https://jakubtomsu.github.io/solarstorm).
+I made a sci-fi artillery game [Solar Storm](https://jakubtomsu.github.io/solarstorm).
 
 ### Where you can find me
 - [itch.io](https://jakubtomsu.itch.io/)
