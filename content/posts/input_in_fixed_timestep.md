@@ -9,7 +9,7 @@ It explains how to properly accumulate a timer and run ticks with a fixed delta 
 
 I use a slightly modified version of the update loop, here is a simplified version in Odin:
 
-```odin
+```c
 DELTA :: 1.0 / 60.0
 
 accumulator: f32
@@ -64,7 +64,7 @@ The solution is interpolation.
 
 Now `game_draw` takes two game states, and interpolates between them based on the alpha factor.
 Here is an example of interpolating the camera and enemies:
-```odin
+```c
 game_draw :: proc(game, prev_game: Game, alpha: f32) {
     camera := Camera{
         pos = lerp(prev_game.camera.pos, game.camera.pos, alpha),
@@ -99,7 +99,7 @@ As you can see the `game_tick` procedure takes an `input` parameter, but where d
 Glenn's article doesn't cover this, probably because he's mostly concerned with physics simulations. But in our case it's crucial to get the correct results.
 
 Just for context, here is how my (simplified) input state looks like. This isn't very important, but note I don't use an "input event queue" in gameplay code. I just use procedures like `input_key_down(inp, .Left_Shift)` etc.
-```odin
+```c
 Input :: struct {
     cursor_pos:    Vec2,
     cursor_delta:  Vec2,
@@ -119,7 +119,7 @@ Input_Digital_Flags :: enum u8 {
 Okay, now let's see how to pass the inputs into the `game_tick` procedure.
 
 The naive solution is to just pass your regular input state like you would normally:
-```odin
+```c
 frame_input: Input
 // ...
 
@@ -163,7 +163,7 @@ Alternatively you could skip this and set the delta to zero after every tick, bu
 Finally, you clear the rest of temporary input data once you ran all your ticks.
 
 Here is the update loop example code:
-```odin
+```c
 DELTA :: 1.0 / 60.0
 
 frame_input: Input
