@@ -34,6 +34,8 @@ for !quit {
 The main difference is that I calculate number of ticks from the accumulator, instead of running a while loop and subtracting delta from the accumulator directly.
 I find this a bit nicer but there isn't much difference.
 
+> Note: if you use floating point numbers you might run into float cancellation precision issues. An alternative is to use 64 bit ints to store nanoseconds directly and do all computations with those. And then convert the delta to float later once you need it. Thanks to Graphite for telling me about this!
+
 ## How engines separate update and physics ticks
 It's fairly common for game engines to separate regular ticks and physics ticks. For example, unity components have an `Update` function which runs every frame and `FixedUpdate` function which runs 50 times a second (by default) during physics tick.
 
