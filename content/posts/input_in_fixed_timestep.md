@@ -175,13 +175,14 @@ prev_game: Game
 prev_time := time.tick_now()
 
 for !quit {
+    // Accumulates the input events to both frame and tick input states
     for event in events {
     case .Key_Down:
         input_add_key_down(&frame_input, event.key)
         input_add_key_down(&tick_input, eveny.key)
     case .Key_Up:
-        input_add_key_down(&frame_input, event.key)
-        input_add_key_down(&tick_input, event.key)
+        input_add_key_up(&frame_input, event.key)
+        input_add_key_up(&tick_input, event.key)
     // case ...
         // handle other (input) events, as well as mouse buttons and mouse move...
     }
