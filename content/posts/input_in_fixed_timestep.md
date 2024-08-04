@@ -34,7 +34,7 @@ for !quit {
 The main difference is that I calculate number of ticks from the accumulator, instead of running a while loop and subtracting delta from the accumulator directly.
 I find this a bit nicer but there isn't much difference.
 
-### How engines separate update and physics ticks
+## How engines separate update and physics ticks
 It's fairly common for game engines to separate regular ticks and physics ticks. For example, unity components have an `Update` function which runs every frame and `FixedUpdate` function which runs 50 times a second (by default) during physics tick.
 
 I really don't like this separation.
@@ -43,7 +43,7 @@ It often makes gameplay code which interacts with physics much more convoluted, 
 It can be very confusing for beginner programmers.
 And in general setting up your simulation this way makes it easier to write frame-rate dependent and less stable gameplay code.
 
-### A single fixed timestep tick for both gameplay and physics
+## A single fixed timestep tick for both gameplay and physics
 So what's the alternative?
 
 To have one big `tick` procedure which updates _everything_ in the game, including gameplay, physics, etc.
@@ -54,7 +54,7 @@ This way the game simulation is completely independent from "frames" and renderi
 It could be complicated to do this in an already existing engine, or if you use one of the common rigidbody physics engines.
 But I have a custom engine and custom collision system, so I can set it up however I like :P
 
-### Interpolating everything
+## Interpolating everything
 Okay, what about rendering then?
 
 You _could_ you just run your ticks in a fixed update loop, and then rendered the final game state every frame.
@@ -89,16 +89,16 @@ As you can see there are two copies of entire game state.
 This makes it easy to do interpolation, and you can also use the previous game state for many things in gameplay code as well.
 
 I initially got this idea from Dreams by Media Molecule.
-It's a really smart engine architecture, which Alex Evans explained in one of their [stream](https://youtu.be/1Gce4l5orts?si=TMOJP0Bt_jxXazIm).
+It's a really smart engine architecture, which Alex Evans explained in one of their [streams](https://youtu.be/1Gce4l5orts?si=TMOJP0Bt_jxXazIm).
 
 If you use fixed size datastructures and never dynamically allocate memory like I do, copying the game state is just a single big `memcpy` once per tick.
-But in case you want to use dynamic memory, you could use [arena allocators](https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator) to make copying game state trivial as well.
+But in case you want to use dynamic memory, you could use [arena allocators](https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator) or some kind of memory pools to make copying game state trivial as well.
 
 ## What about input?
 As you can see the `game_tick` procedure takes an `input` parameter, but where did that come from?
 Glenn's article doesn't cover this, probably because he's mostly concerned with physics simulations. But in our case it's crucial to get the correct results.
 
-Just for context, here is how my (simplified) input state looks like. This isn't very important, but note I don't use an "input event queue" in gameplay code. I just use procedures like `input_key_down(inp, .Left_Shift)` etc.
+Just for context, here is how my (simplified) input state looks like. This isn't very important, but note I don't use an "input event queue" in gameplay code. I just use procedures like `input_is_key_down(inp, .Left_Shift)` etc.
 ```c
 Input :: struct {
     cursor_pos:    Vec2,
@@ -140,7 +140,7 @@ for !quit {
 }
 ```
 
-But, this has a number of problems.
+But, this has a number of problems:
 1. Inputs are lost when there are no ticks to run for few frames.
 2. Mouse delta is applied multiple times
 3. Key states which should only be valid for one frame (like Pressed and Released) are passed into `game_tick` multiple times.
@@ -148,9 +148,9 @@ But, this has a number of problems.
 ### Solution 1: Poll inputs every tick
 This might technically be the "best" solution to this problem, because you also get the most accurate results this way.
 However it might not be practical because your app only has one event loop, and you need regular frame inputs too.
-You could probably poll events and then "save" non-input ones for later, but IMO it's probably unnecessary.
+You could probably poll events and then "save" non-input ones for later, but IMO it's probably unnecessary for many games.
 
-### Solution 2: Accumulate separate tick inputs
+### Solution 2: Accumulate tick inputs separately
 This is what I went with, because it's simple and the accuraccy loss from not polling inputs every tick isn't noticable.
 
 The idea is to keep _two_ separate input states, one for "per frame" stuff and the other one for ticks.
