@@ -7,7 +7,9 @@ description: "About update loops, interpolation, game state double-buffering, an
 [Fix your Timestep!](https://www.gafferongames.com/post/fix_your_timestep/) is an amazing article by Glenn Fiedler about fixed timestep update loops for games and physics simulations.
 It explains how to properly accumulate a timer and run ticks with a fixed delta time within your main loop.
 
-I use a slightly modified version of the update loop, here is a simplified version in Odin:
+But it seems like it's mostly targeted at physics simulations, and it doesn't cover a few things you need to make your entire game run on fixed timesteps. For example, how to handle input polling properly! That's what I'll try to cover today, as well as some reasoning behind this game architecture.
+
+I use a slightly modified version of the update loop from Gaffer's article, here is a simplified version in Odin:
 
 ```c
 DELTA :: 1.0 / 60.0
