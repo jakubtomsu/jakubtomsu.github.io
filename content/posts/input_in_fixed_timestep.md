@@ -61,7 +61,7 @@ But I have a custom engine and custom collision system, so I can set it up howev
 ## Interpolating everything
 Okay, what about rendering then?
 
-You _could_ you just run your ticks in a fixed update loop, and then rendered the final game state every frame.
+You _could_ just run your ticks in a fixed update loop, and then rendered the final game state every frame.
 However the "tick time" and "frame time" doesn't match perfectly. And in cases when the frame rate is much higher than tick rate, the game could look very laggy.
 
 The solution is interpolation.
