@@ -155,7 +155,7 @@ However it might not be practical because your app only has one event loop, and 
 You could probably poll events and then "save" non-input ones for later, but IMO it's probably unnecessary for many games.
 
 ### Solution 2: Accumulate tick inputs separately
-This is what I went with, because it's simple and the accuraccy loss from not polling inputs every tick isn't noticable.
+This is what I went with, because it's simple and the accuracy loss from not polling inputs every tick isn't noticeable.
 
 The idea is to keep _two_ separate input states, one for "per frame" stuff and the other one for ticks.
 Both are updated with the same events at the start of your frame, but the state is updated in a different way during the frame.
