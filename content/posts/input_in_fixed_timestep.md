@@ -72,7 +72,7 @@ Here is an example of interpolating the camera and enemies:
 game_draw :: proc(game, prev_game: Game, alpha: f32) {
     camera := Camera{
         pos = lerp(prev_game.camera.pos, game.camera.pos, alpha),
-        rot = slerp(prev_game.camera.pos, game.camera.pos, alpha),
+        rot = slerp(prev_game.camera.rot, game.camera.rot, alpha),
     }
     
     for curr_enemy, i in game.enemies {
