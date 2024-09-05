@@ -21,6 +21,7 @@ prev_time := time.tick_now()
 
 for !quit {
     frame_duration := f32(time.duration_seconds(time.tick_since(prev_time)))
+    prev_time = time.tick_now()
     accumulator += frame_duration
     num_ticks := int(floor(accumulator / DELTA))
     accumulator -= f32(num_ticks) * DELTA
@@ -192,6 +193,7 @@ for !quit {
     }
     
     frame_duration := f32(time.duration_seconds(time.tick_since(prev_time)))
+    prev_time = time.tick_now()
     accumulator += frame_duration
     num_ticks := int(floor(accumulator / DELTA))
     accumulator -= f32(num_ticks) * DELTA
