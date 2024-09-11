@@ -4,6 +4,11 @@ date: 2024-09-11
 description: "A short tutorial about logo design in Krita"
 ---
 
+> Note: this was initially supposed to be my first supporter-only Patreon post.
+> But their tools for writing posts kinda suck so I thought hey, let's just release it for free.
+
+> Anyway it would mean a lot to me if you decided to support me anyway! Here is [my Patreon link](https://www.patreon.com/jakubtomsu)
+
 This is an behind-the-scenes look at my design process for the first iteration of a logo for my new game, BEHEADER.
 
 I use Krita, it's a pretty good and free photoshop alternative. It doesn't have all of the fancy features but there are enough filters for me to do all I need.
