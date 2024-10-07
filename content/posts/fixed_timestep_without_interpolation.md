@@ -2,6 +2,7 @@
 title: "Fixed timestep without interpolation"
 date: 2024-08-04
 description: "Simple interpolation alternative for singleplayer games with fixed timestep ticks"
+draft: true
 ---
 
 Some time ago I wrote a [blog post](https://jakubtomsu.github.io/posts/input_in_fixed_timestep/) about the tick setup in my engine, why and how I use fixed timestep update loops. It also explained how to actually use it in practice when dealing with input etc. The game would keep a accumulator timer and only simulate steps with a constant delta time, which is great for stability and predictability.
