@@ -92,9 +92,11 @@ I don't do this in my game, simply because I didn't run into issues with the cur
 # What about input?
 Just like the last time, the `game_tick` needs to get the input from somewhere. This is easy, because the main update loop is pretty much the same like in the interpolation case! So the solution from my original post still applies, you can just use a separate `frame_input` and a `tick_input`.
 
-But what about the temporary render tick?
+But what about the temp render tick?
 
-This is a bit trickier. To be honest I'm not sure what is the correct solution, especially if you implement the 
+This is a bit trickier. To be honest I'm not sure what is the perfectly correct solution, especially if you implement the stateful render game state I mentioned in the previous section.
+
+But I found re-applying the `tick_input` in exactly the same way as in the fixed update loop works decently well. You also want to clear the "pressed" and "released" flags from the input, because those were already applied in the fixed update loop. If you use my implementation from previous article you don't need to do this directly, the fixed update loop does this on it's own anyway.
 
 # Tangent: determinism and replay
 This isn't related to the main topic of this post, because it applies to any kind of gameplay where the timestep is fixed (it doesn't matter whether you use prediction or interpolation). But if your gameplay is deterministic, meaning you always get the same game state T+1 by simulating game state T with the same input, there is a neat trick to do game replay.
@@ -113,4 +115,4 @@ Yep, it's really that simple. Now go and put this in your engine!
 
 After I published the original blog post, a number of people messaged me it helped them with use fixed timestep update loops in their game/engine as well. However some people complained specifically about the interpolation step, it can be kinda cumbersome to do, especially if you want to interpolate more properties than just the entity transform.
 
-
+Some time later `poyepolomix` messaged me on discord, about this alternative method. It was really cool, seemed very simple at a first glance, and turns out it is!
