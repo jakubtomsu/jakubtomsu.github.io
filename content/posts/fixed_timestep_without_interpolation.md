@@ -1,6 +1,6 @@
 ---
 title: "Fixed timestep without interpolation"
-date: 2024-08-04
+date: 2024-10-11
 description: "Temp render tick as a simple interpolation alternative for singleplayer games with fixed timestep ticks"
 draft: true
 ---
@@ -78,13 +78,17 @@ for !quit {
 > Note:
 > This method probably won't work very well in cases when `game_tick` can take a very significant amount of time, or the game state is gigantic, e.g. in a big AAA game which needs to run the physics engine and whatnot.
 
+#### Game state duplication
+In a more traditional system with individually dynamically allocated objects this might be bit of an issue.
+Even if your language can do a _deep copy_ of an object which holds the game state, the individual allocations could take a long time or it could make the GC sad.
+
 In my case the _entire_ game state is trivially copyable, because:
 1. I never store any pointers. ever. Only integer indexes or handles.
 2. All of the datastructures are fixed size, no dynamic allocations.
 
 This means I can easily do `memcpy` and get a duplicate game state without any issues. This makes things a whole lot easier to deal with.
 
-# What about input?
+## What about input?
 Just like the last time, the `game_tick` needs to get the input from somewhere. This is easy, because the main update loop is pretty much the same like in the interpolation case! So the solution from my original post still applies, you can just use a separate `frame_input` and a `tick_input`.
 
 But what about the temp render tick?
