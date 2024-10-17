@@ -6,7 +6,7 @@ description: "Temp render tick as a simple interpolation alternative for singlep
 
 Some time ago I wrote a [blog post](https://jakubtomsu.github.io/posts/input_in_fixed_timestep/) about the tick setup in my engine, why and how I use fixed timestep update loops. It also explained how to actually use it in practice when dealing with input etc.
 
-The general idea is this: the game would keep a accumulator timer and only simulate steps with a constant delta time, which is great for stability and predictability.
+The general idea is this: the game would keep an accumulator timer and only simulate steps with a constant delta time, which is great for stability and predictability.
 
 This was mostly inspired by server code for multiplayer games, so I naturally also implemented game state interpolation, which multiplayer games use as well. However I have some issues with regular interpolation, it adds unnecessary latency and it's also annoying to implement.
 
@@ -36,17 +36,19 @@ for !quit {
     // Remainder to go from fixed time to real time.
     // Always in 0..1 range.
     alpha := accumulator / DELTA
-    // Interpolates between T-1 and T game state with the alpha factor.
+    // Interpolates between previous and current game state with the alpha factor.
     game_draw(game, prev_game, alpha)
 }
 ```
 
 # Can we do better?
-The fundamental issue is that the fixed timestep simulation does as many timesteps as possible, however because the frame-rate is variable the real time doesn't always match the fixed time.
+The fundamental issue is that the fixed timestep simulation does as many timesteps as possible, however because the frame-rate is variable, the real time doesn't always match the fixed time.
 
-So the solution is very simple, after the fixed timestep simulation is done, we need to simulate one more additional tick with the remainding time. However this additional tick could mess up our game state, because the time step is no longer fixed.
+So the solution is very simple, after the fixed timestep simulation is done, we need to simulate one more additional tick with the remaining time. However this additional tick could mess up our game state, because the time step is no longer fixed - this is a problem especially for things like physics.
 
-For this reason we **duplicate** the entire game state into a new, temporary render-only game state, and simulate the tick on this one. That way the fixed timestep game state stays untouched.
+## Render Tick
+
+For this reason we **duplicate** the entire game state into a new, temporary render-only game state, and simulate the tick on this one. That way the fixed timestep game state stays untouched. So we **"predict"** what's gonna happen at a particular point in time between current fixed tick and the next one.
 
 ```go
 DELTA :: 1.0 / 60.0
@@ -61,7 +63,7 @@ for !quit {
     prev_time = time.tick_now()
     accumulator += frame_duration
     for ;accumulator > DELTA; accumulator -= DELTA {
-        // Simulate the game state (without keeping T-1 game state!)
+        // Simulate the game state (without keeping previous game state!)
         game_tick(&game, DELTA)
     }
     // Remainder to go from fixed time to real time.
@@ -82,7 +84,7 @@ for !quit {
 > This method probably won't work very well in cases when `game_tick` can take a very significant amount of time, or the game state is gigantic, e.g. in a big AAA game which needs to run the physics engine and whatnot.
 
 ## Game state duplication
-In a more traditional system with individually dynamically allocated objects this might be bit of an issue.
+In a more traditional system with individually dynamically allocated objects this might be a bit of an issue.
 Even if your language can do a _deep copy_ of an object which holds the game state, the individual allocations could take a long time or it could make the GC sad.
 
 In my case the _entire_ game state is trivially copyable, because:
@@ -133,13 +135,13 @@ Something I've realized while working on this post and the Demo is how different
 ### Accumulated render tick
 In case you wanted to run only a very small number of fixed update ticks per second, the basic render tick method described above has some limitations. The temporary render tick always uses the last fixed tick, which means as your fixed delta increases your render tick might be doing a single, very large time step.
 
-> This is not an issue in most singleplayer PC games. That's because you _probably_ want to simulate >30 ticks per second anyway, for stability reasons and just because there is no reason to push TPS lower.
+> This is not an issue in most singleplayer PC games. That's because you _probably_ want to simulate >30 ticks per second anyway, for stability reasons and just because there's no reason to push TPS lower.
 
 The solution is to copy game state into temp game state _only_ if you simulated a fixed tick that frame. Otherwise you keep simulating the old temp game state. This also means you need to keep another separate remainder timer, because alpha is no longer valid for each render tick.
 
 This is similar to client-side prediction in real-time multiplayer games.
 
-One issue is jitter, the difference in frequecy of input between fixed and predicted ticks is so significant the render game state can get out of sync. One solution is to interpolate to sync the game states instead of doing that instantly. Alternatively you could modify the render tick inputs to eliminate high frequency inputs, and maybe even completely disable "pressed" and "released" key events.
+One issue is jitter, the difference in frequency of input between fixed and predicted ticks is so significant the render game state can get out of sync. One solution is to interpolate to sync the game states instead of doing that instantly. Alternatively you could modify the render tick inputs to eliminate high frequency inputs, and maybe even completely disable "pressed" and "released" key events.
 
 
 I don't do this in my game, simply because I didn't run into issues with the current, simpler approach. But I thought I should mention it anyway.
@@ -164,7 +166,7 @@ This is the regular render tick method, it looks fairly smooth and importantly t
 
 ![render tick](render_tick.gif)
 
-Here is a very high TPS sim just for comparison:
+Here is a very high TPS simulation just for comparison:
 
 ![reference](reference.gif)
 
@@ -198,4 +200,4 @@ Thank you for reading, I hope this can be useful in your engine/game project! Al
 
 After I published the original blog post, a number of people messaged me it helped them with use fixed timestep update loops in their game/engine as well. However some people complained specifically about the interpolation step, it can be kinda cumbersome to do, especially if you want to interpolate more properties than just the entity transform.
 
-I was told about the render tick method by `poyepolomix` on discord, a fellow handmade programmer. He uses it in his engine as well! And he found out about it from an old [Jonathan Blow Q&A stream](https://youtu.be/fdAOPHgW7qM?si=chCqgUTNoOLuHDvy) which is a much more in-depth explanation of this entire topic.
+I was told about the render tick method by Radek Jurga on discord, a fellow handmade programmer. He uses it in his engine as well! And he found out about it from an old [Jonathan Blow Q&A stream](https://youtu.be/fdAOPHgW7qM?si=chCqgUTNoOLuHDvy) which is a much more in-depth explanation of this entire topic.
