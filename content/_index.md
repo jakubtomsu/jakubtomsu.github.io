@@ -17,6 +17,7 @@ I made a sci-fi artillery game [Solar Storm](https://jakubtomsu.github.io/solars
 - [Github](https://github.com/jakubtomsu)
 - [Twitter](https://twitter.com/jakubtomsu_)
 - [YouTube](https://youtube.com/@jakubtomsu)
+- [BlueSky](https://bsky.app/profile/jakubtomsu.bsky.social)
 - [Mastodon](https://mastodon.gamedev.place/@jakubtomsu)
 
 ### Blog Roll
