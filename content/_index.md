@@ -8,7 +8,8 @@ Hey, I'm Jakub! I'm interested in software development and gamedev. I like game 
 
 You can support me on [Patreon](https://www.patreon.com/jakubtomsu)!
 
-Currently I'm working on a brutal retro FPS called BEHEADER. I also made a sci-fi artillery game [Solar Storm](https://jakubtomsu.github.io/solarstorm).
+Currently I'm working on a brutal retro roguelite [BEHEADER](https://jakubtomsu.github.io/beheader).
+I also made a tiny sci-fi artillery game [Solar Storm](https://jakubtomsu.github.io/solarstorm).
 
 **Join my [Discord Server](https://discord.com/invite/wn5jMMMYe4)!**
 
