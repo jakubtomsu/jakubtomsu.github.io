@@ -4,11 +4,11 @@ body {
   padding: 20px;
   max-width: 720px;
   text-align: left;
-  background-color: #1d1f27;
+  background-color: #101819;
   word-wrap: break-word;
   overflow-wrap: break-word;
   line-height: 1.5;
-  color: #c9d1d9;
+  color: #99aabb;
 }
 
 h1,
@@ -19,11 +19,11 @@ h5,
 h6,
 strong,
 b {
-  color: #eee;
+  color: #bbccdd;
 }
 
 a {
-  color: #8cc2dd;
+  color: #aaccee;
 }
 
 .title {
@@ -76,7 +76,7 @@ img {
 code {
   padding: 2px 5px;
   color: #f8f8f2;
-  background-color: #282a36;
+  background-color: #112228;
 }
 
 pre code {
@@ -88,8 +88,8 @@ pre code {
 }
 
 blockquote {
-  border-left: 1px solid #999;
-  color: #ccc;
+  border-left: 1px solid #667788;
+  color: #667788;
   padding-left: 20px;
   font-style: italic;
 }

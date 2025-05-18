@@ -32,8 +32,8 @@ enableRobotsTXT = true
       madeWith = "Made with [Bear Cub](https://github.com/clente/hugo-bearcub)"
 
 [params]
-  [author]
-    name = "Jakub Tomšů"
+  author.name = "Jakub Tomšů"
+  soclail.twitter = "jakubtomsu_"
 
   # The description of your website
   description = "Gamedev tech blog"
