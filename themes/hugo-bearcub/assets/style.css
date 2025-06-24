@@ -4,7 +4,7 @@ body {
   padding: 20px;
   max-width: 720px;
   text-align: left;
-  background-color: #101819;
+  background-color: #0e191f;
   word-wrap: break-word;
   overflow-wrap: break-word;
   line-height: 1.5;
@@ -75,8 +75,8 @@ img {
 
 code {
   padding: 2px 5px;
-  color: #f8f8f2;
-  background-color: #112228;
+  color: #ccccd0;
+  background-color: #122027;
 }
 
 pre code {
