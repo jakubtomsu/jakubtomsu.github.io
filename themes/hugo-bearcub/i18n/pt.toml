@@ -6,3 +6,9 @@
 
 [email-subject]
   other = "Resposta a "
+
+[email-reply]
+  other = "Responda a este post por email"
+
+[skip-link]
+  other = "Pular para conteúdo principal"
