@@ -1,14 +1,15 @@
 body {
-  font-family: Verdana, sans-serif;
+  font-family: 'Inconsolata', consolas;
+  font-size: 100%;
   margin: auto;
   padding: 20px;
   max-width: 720px;
   text-align: left;
-  background-color: #0e191f;
+  background-color: #030625;
   word-wrap: break-word;
   overflow-wrap: break-word;
   line-height: 1.5;
-  color: #99aabb;
+  color: #ced9ed;
 }
 
 h1,
@@ -19,11 +20,27 @@ h5,
 h6,
 strong,
 b {
-  color: #bbccdd;
+  color: #ced9ed;
 }
 
 a {
-  color: #aaccee;
+  display: inline-block;
+  color: #0bc3a9;
+  padding: 0px 2px;
+}
+
+ul a:visited {
+  color: #2cc64e;
+}
+
+a:visited:hover {
+  color: #030625;
+}
+
+a:not(.title):hover {
+  color: #030625;
+  background-color: #2cc64e;
+  box-shadow: 0 0 0 2px #2cc64e;
 }
 
 .title {
@@ -76,7 +93,7 @@ img {
 code {
   padding: 2px 5px;
   color: #ccccd0;
-  background-color: #122027;
+  background-color: #1c2536;
 }
 
 pre code {
@@ -88,10 +105,9 @@ pre code {
 }
 
 blockquote {
-  border-left: 1px solid #667788;
-  color: #667788;
+  border-left: 1px solid #81899e;
+  color: #81899e;
   padding-left: 20px;
-  font-style: italic;
 }
 
 footer {
@@ -124,10 +140,6 @@ ul.blog-posts li span {
   flex: 0 0 130px;
 }
 
-ul.blog-posts li a:visited {
-  color: #8b6fcb;
-}
-
 a.blog-tags {
   line-height: 2;
 }
@@ -140,4 +152,20 @@ h3.blog-filter {
   color: currentColor;
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+li {
+  padding-left: 0em;
+  text-indent: 0em;
+}
+
+li:before {
+  content: ">";
+  padding-right: 16px;
 }
