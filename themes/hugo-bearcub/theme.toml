@@ -1,7 +1,7 @@
 name = "Bear Cub"
 license = "MIT"
 licenselink = "https://github.com/clente/hugo-bearcub/blob/master/LICENSE"
-description = "Theme description"
+description = "A lightweight Hugo theme based on Bear Blog and Hugo Bear Blog. It is free, multilingual, optimized for search engines, no-nonsense, responsive, light, and fast. Really fast."
 
 # The home page of the theme, where the source can be found.
 homepage = "https://github.com/clente/hugo-bearcub"

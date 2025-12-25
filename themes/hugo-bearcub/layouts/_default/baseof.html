@@ -11,11 +11,13 @@
   {{- partial "seo_tags.html" . -}}
   <meta name="referrer" content="no-referrer-when-downgrade" />
 
-  {{ $style := resources.Get "style.css" | minify }}
+  {{ $style := print (default "original" .Site.Params.themeStyle) ".css" | resources.Get | minify }}
   <link href="{{ $style.RelPermalink }}" rel="stylesheet">
 
-  {{ $syntax := resources.Get "syntax.css" | minify }}
-  <link href="{{ $syntax.RelPermalink }}" rel="stylesheet">
+  {{ if (.Page.Store.Get "hasCodeBlock") }}
+    {{ $syntax := resources.Get "syntax.css" | minify }}
+    <link href="{{ $syntax.RelPermalink }}" rel="stylesheet">
+  {{ end }}
 
   {{ with .Params.style }}
     {{ $extra := resources.Get . | minify }}
@@ -36,7 +38,7 @@
   <header>
     {{- partial "header.html" . -}}
   </header>
-  <main>
+  <main id="main-content">
     {{- block "main" . }}{{- end }}
   </main>
   <footer>

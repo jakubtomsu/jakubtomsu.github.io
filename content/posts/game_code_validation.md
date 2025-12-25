@@ -4,16 +4,15 @@ date: 2025-06-04
 description: "A super simple, brute force method of validating gameplay code instead of unit testing"
 ---
 
-I recently ran into some NaN propagation bug in my gameplay code which required a bit more effort than usual.
+I recently ran into some NaN propagation bug in my gameplay code, which required a bit more effort than usual.
 
-Usually, those problems are straightforward to solve: it's just a forgotten zero-check before dividing, normalizing zero-length vector, etc.
+Often, those problems are straightforward to solve: it's just a forgotten zero-check before dividing, normalizing zero-length vector, etc.
 I almost always find it immediately by looking through my most recent changes. But this time I had no idea!
 
-So I came up with a simple way to help catching these bugs in general (in fact, it's so simple it's probably the first thing you would think of too).
+So I came up with a simple way to *help* catching these bugs in general (in fact, it's so simple it's probably the first thing you would think of too).
 But it's a nice pattern, so I thought I would share it anyway.
 
 ## Gameplay testing in general
-
 Testing games can be really complicated, since the final output is just pixels and audio.
 I have few "real unit tests" in my codebase, mostly for things like file formats.
 Those usually look like this:
@@ -40,7 +39,6 @@ validate_f32 :: proc(x: f32) {
 ```
 
 Then it's easy to use this for validating other data:
-
 ```odin
 validate_vec :: proc(v: [$N]f32) {
     for f in v {
@@ -49,6 +47,7 @@ validate_vec :: proc(v: [$N]f32) {
 }
 ```
 
+And then validating actual entities:
 ```odin
 validate_entity :: proc(ent: ^Entity) {
     validate_vec(ent.position)
@@ -75,20 +74,21 @@ Here is a pattern I use a lot: validate every entity at the start and the end of
 The defer makes sure it's called on every return.
 
 ```odin
-entity_tick :: proc(ent: ^Entity, delta_time: f32) {
+entity_tick :: proc(ent: ^Entity, delta: f32) {
     validate_entity(ent^)
     defer validate_entity(ent^)
+
     // gameplay logic...
 }
 ```
 
-With this in place, I'm significantly more confident I can debug issues like this in the future.
+This is kinda like the "assert everywhere" advice, just in a slightly different form.
 
-Btw this is kinda like the "assert everywhere" advice, just in a slightly more formal way.
+With this in place, I'm significantly more confident I can debug issues with NaN etc much easier.
 
 ## Failed approach: catching FP exceptions
 
 Before this approach I also tried to catch FP exceptions directly at the source.
-Turns out this isn't really viable due to SIMD codegen of modern compilers (I won't go into details).
+Turns out this isn't really viable due to SIMD codegen of modern compilers (I won't go into details here...)
 
 But in case you wanna try it yourself, here is a [Github gist](https://gist.github.com/jakubtomsu/361f9319f73ed0ae9c0e36df887226b9) for enabling the exceptions on win32 with Odin.

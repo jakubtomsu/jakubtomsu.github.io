@@ -33,7 +33,6 @@ enableRobotsTXT = true
 
 [params]
   author.name = "Jakub Tomšů"
-  soclail.twitter = "jakubtomsu_"
 
   # The description of your website
   description = "Gamedev tech blog"
@@ -59,6 +58,8 @@ enableRobotsTXT = true
   # will create a disabled link. By setting `hideUntranslated` to true, you can
   # have the theme simply not show any link
   hideUntranslated = false
+
+  themeStyle = "original"
 
   # (EXPERIMENTAL) This theme is capable of dynamically generating social cards
   # for posts that don't have `images` defined in their front matter; By setting
