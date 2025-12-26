@@ -1,5 +1,5 @@
 ---
-title: "Fixed timestep update loops for everything!"
+title: "Reliable fixed timestep & inputs"
 date: 2024-08-04
 description: "About update loops, interpolation, game state double-buffering, and correct input handling with fixed timestep"
 ---
@@ -75,7 +75,7 @@ game_draw :: proc(game, prev_game: Game, alpha: f32) {
         pos = lerp(prev_game.camera.pos, game.camera.pos, alpha),
         rot = slerp(prev_game.camera.rot, game.camera.rot, alpha),
     }
-    
+
     for curr_enemy, i in game.enemies {
         prev_enemy := prev_game.enemies[i]
         enemy := curr_enemy
@@ -134,11 +134,11 @@ for !quit {
         input_add_key_down(&frame_input, key)
     // handle other (input) events...
     }
-    
+
     // ...
         game_tick(&game, prev_game, frame_input, DELTA)
     // ...
-    
+
     // Clear input flags for things like "pressed", "released" etc.
     // but keep "down" states
     input_clear_temp(&frame_input)
@@ -191,7 +191,7 @@ for !quit {
     // case ...
         // handle other (input) events, as well as mouse buttons and mouse move...
     }
-    
+
     frame_duration := f32(time.duration_seconds(time.tick_since(prev_time)))
     prev_time = time.tick_now()
     accumulator += frame_duration
@@ -201,7 +201,7 @@ for !quit {
     if num_ticks > 0 {
         tick_input.cursor_delta /= f32(num_ticks)
         tick_input.scroll_delta /= f32(num_ticks)
-        
+
         for tick_index in 0 ..< num_ticks {
             runtime.mem_copy_non_overlapping(&prev_game, &game, size_of(Game))
             game_tick(&game, prev_game, tick_input, DELTA)
@@ -209,12 +209,12 @@ for !quit {
             for &flags in tick_input.keys do flags &= {.Down}
             for &flags in tick_input.mouse_buttons do flags &= {.Down}
         }
-        
+
         // Now clear the rest of the input state
         tick_input.cursor_delta = {}
         tick_input.scroll_delta = {}
     }
-    
+
     alpha = accumulator / DELTA
     game_draw(game, prev_game, alpha)
 }

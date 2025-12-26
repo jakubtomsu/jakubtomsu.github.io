@@ -4,8 +4,6 @@ menu: "main"
 weight: 1
 ---
 
-![cat](dithercat.png)
-
 I'm Jakub, a solo indie game developer. I tinker with custom engines and [Odin](https://odin-lang.org).
 
 Currently I'm working on a brutal retro roguelite [BEHEADER](https://jakubtomsu.github.io/beheader).

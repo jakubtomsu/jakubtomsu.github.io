@@ -17,7 +17,7 @@ I also made a [Demo](#demo) program which implements all of the different method
 # The "old" way
 
 Here is what the **old** game loop looked like. The game kept track of the game state from the previous tick, and then used this for interpolation with the time remainder.
-```go
+```odin
 DELTA :: 1.0 / 60.0
 
 accumulator: f32
@@ -50,7 +50,7 @@ So the solution is very simple, after the fixed timestep simulation is done, we 
 
 For this reason we **duplicate** the entire game state into a new, temporary render-only game state, and simulate the tick on this one. That way the fixed timestep game state stays untouched. So we **"predict"** what's gonna happen at a particular point in time between current fixed tick and the next one.
 
-```go
+```odin
 DELTA :: 1.0 / 60.0
 
 accumulator: f32
@@ -101,7 +101,7 @@ But what about the temp render tick?
 But I found re-applying the `tick_input` in exactly the same way as in the fixed update loop works decently well. You also want to clear the "pressed" and "released" flags from the input, because those were already applied in the fixed update loop. If you use my implementation from previous article you don't need to do this directly, the fixed update loop does this on it's own anyway.
 
 So here is how to accumulate the input states every frame:
-```go
+```odin
 tick_input.cursor = frame_input.cursor
 // _accumulate_ temp flags instead of overwriting
 for flags, action in frame_input.actions {
@@ -110,7 +110,7 @@ for flags, action in frame_input.actions {
 }
 ```
 And this is how to apply it. Note how the temp flags are cleared after every tick, and all flags are cleared at the end of a frame when any tick happened.
-```go
+```odin
 any_tick := accumulator > delta
 for ;accumulator > delta; accumulator -= delta {
     game_tick(&game, tick_input, delta)
