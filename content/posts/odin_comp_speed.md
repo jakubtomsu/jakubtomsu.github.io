@@ -177,6 +177,9 @@ Similarly, using `-microarch:native` adds no overhead. I'm pretty sure it just t
 
 GingerBill says the Odin compiler can still be a lot faster. And while there's plenty of room for optimization, it's not too bad in the current state.
 
+For a simple hello world, we got nearly **5x faster** compile times by compiling with the right flags and being careful about dependencies.
+Of course, it's different in real, bigger projects but I hope I shed some light on the various ways you could debug these issues, and some general rules to follow.
+
 I recomment the following command as a reasonable default for compiling lightweight tools:
 ```
 odin build my_tool -linker:radlink -o:minimal -microarch:native
