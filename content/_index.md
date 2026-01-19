@@ -4,9 +4,9 @@ menu: "main"
 weight: 1
 ---
 
-Hey! I do indie game development and also tinker with custom engines and [Odin](https://odin-lang.org).
+Hey! I make indie games and also tinker with custom engines in [Odin](https://odin-lang.org).
 
-Currently I'm working on a brutal retro roguelite [BEHEADER](https://jakubtomsu.github.io/beheader).
+I'm working on a brutal retro roguelite [BEHEADER](https://jakubtomsu.github.io/beheader).
 I also made a tiny sci-fi artillery game [Solar Storm](https://jakubtomsu.github.io/solarstorm).
 
 ### Links
