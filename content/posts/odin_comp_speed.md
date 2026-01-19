@@ -183,3 +183,13 @@ odin build my_tool -linker:radlink -o:minimal -microarch:native
 ```
 
 Thank you for reading!
+
+#### Also big thanks to all my Patrons! <3
+- Voodoo51
+- p1xelHer0
+- Coedo
+- Filip Aničić
+- Moritz Falk
+- Lion Schitik
+- Ondřej Jamriška
+- Alastair Marshall
