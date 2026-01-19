@@ -1,12 +1,12 @@
 ---
 title: "Odin compilation speed tips"
 date: 2026-01-19
-description: "How to debug slow compile times and what to do about them"
+description: "How to troubleshoot slow compile times and what to do about them"
 ---
 
 Compilation speed is *really important*. If you hit build and it takes so long it pulls you out of the flow and you start scrolling twitter, that's a problem.
 
-So what can we do to compile Odin programs faster? Here I'll try to explain some ways of debugging Odin compile times and ways to improve them.
+So what can we do to compile Odin programs faster? Here I'll try to explain some ways of troubleshooting Odin compile times and ways to improve them.
 
 ## TL;DR
 
