@@ -168,9 +168,37 @@ On the other hand, `-debug` **has a HUGE impact**. Generating the PDB is no smal
 
 Obviously, it's not a good idea to compile with `-o:speed/size/aggressive` if you want good compilation speed. But I still want debug builds that run fast!
 
-But from my tests `-o:minimal` adds almost no overhead whatsoever, certainly less than ~5%.
+However `-o:minimal` is almost completely free, all it does is enable inlining of `#force_inline` procedures. It's the default when NOT compiling with `-debug`.
 
 Similarly, using `-microarch:native` adds no overhead. I'm pretty sure it just triggers a slightly different code path in the LLVM lowering passes, but could possibly yield some runtime perf benefits.
+
+# Parapoly Variants
+
+Another issue which can appear in larger codebases is a duplicate explosion from [parametric-polymorphism](https://odin-lang.org/docs/overview/#parametric-polymorphism) variants.
+
+For example if you have code like this:
+```odin
+some_large_procedure :: proc($N: int, ...) {
+    // ... lot of code
+}
+```
+
+The compiler will literally need to generate the code for each `N` separately. So while the parsing cost is paid once, the type checker and the backend has to work extra hard.
+
+The overhead is totally negligible even with hundreds of variants *when the procedure body is small*. But once the codegen amount gets larger you start running into all kinds of bottlenecks, one of them being LLVM (as always).
+
+### What to do about this
+
+There isn't any kind of diagnostics in the Odin compiler itself to check if this is happening. What you can do however is compile your code and check the symbols. For example like this on Windows:
+```
+odin build my_program -build-mode:lib
+dumpbin /SYMBOLS my_program.lib > symbols.txt
+```
+Or with `objdump` on Linux. You're looking for a long list of repeated procedure symbols, something like: `my_package::my_procedure:proc(my_param:$$value, ...)`.
+
+
+
+To help mitigate this issue, you could try putting all the common code into a non-parapoly procedure and calling it indirectly. Or, if you don't actually *need* the parapoly specialization and only use it for "optimization", just get rid of it.
 
 
 # Conclusion
@@ -182,7 +210,7 @@ Of course, it's different in real, bigger projects but I hope I shed some light 
 
 I recomment the following command as a reasonable default for compiling lightweight tools:
 ```
-odin build my_tool -linker:radlink -o:minimal -microarch:native
+odin build my_tool -linker:radlink -microarch:native
 ```
 
 Thank you for reading!
@@ -196,3 +224,5 @@ Thank you for reading!
 - Lion Schitik
 - Ondřej Jamriška
 - Alastair Marshall
+
+> Edit 2026-01-22: Added a section about parapoly, and more `-o:minimal` info.
