@@ -91,6 +91,11 @@ This is an overview of ***all*** the things the compiler had to parse to compile
 
 But 26 packages and 80k lines of code seems like a lot for a Hello World. All of that was pulled in by `core:fmt` and it's dependencies. Let's see if we can do something about it.
 
+### Dependencies
+
+A good way to diagnose the dependencies is to add a `-keep-temp-files` flag to the build command, and look at what `.ll` IR files are generated.
+The list of files tells you which packages got actually included in the build. And the file size roughly reflects the compile time.
+
 ## `base:runtime` only
 
 We can do something like the following to write data directly to *stderr*. The `base:runtime` is always included by default as it contains builtin implementations and other required features, so there's not much better we could do.
@@ -226,3 +231,5 @@ Thank you for reading!
 - Alastair Marshall
 
 > Edit 2026-01-22: Added a section about parapoly, and more `-o:minimal` info.
+
+> Edit 2026-01-23: A small section about checking dependency IR
