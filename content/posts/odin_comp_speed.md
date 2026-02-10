@@ -155,10 +155,13 @@ There is only `tprintf`, `printf` and `printfln`. Only supported format qualifie
 
 Here's the [initial ufmt version](https://gist.github.com/jakubtomsu/54ffb22fa7b8341cb9f573598c873d62) as a github gist.
 
+Update: I expanded the initial version and now it lives in the source tree of my game engine. I added very lightweight RTTI crawl for printing any values including structs, arrays, etc automatically. It's not *100% complete*, but it's reasonably usable and I'll continue to improve it. Here's the [link](https://github.com/jakubtomsu/raven/tree/main/base/ufmt).
+
 > Of course, using this has no effect if you import a package which depends on `core:fmt`. This is pretty annoying, currently there is no good way
 > to see what exactly is your program importing and why, apart of looking at temp obj files.
 >
 > On my branch of the compiler I experimented with printing a graphviz graph of all the packages with their includes, but that's not official.
+> Update: see [this PR](https://github.com/odin-lang/Odin/pull/6253) for the graph generator, and a userspace solution using `core:odin/parser`.
 
 # LLVM
 
@@ -233,3 +236,5 @@ Thank you for reading!
 > Edit 2026-01-22: Added a section about parapoly, and more `-o:minimal` info.
 
 > Edit 2026-01-23: A small section about checking dependency IR
+
+> Edit 2026-02-10: Linked graph generator and new ufmt version
