@@ -13,11 +13,17 @@
           </time>
         </i>
       </span>
-      {{ if .Params.link }}
-        <a href="{{ .Params.link }}" target="_blank">{{ .Title }} ↪</a>
-      {{ else }}
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <div>
+        {{ if .Params.link }}
+          <a href="{{ .Params.link }}" target="_blank">{{ .Title }} ↪</a>
+        {{ else }}
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ end }}
+
+      {{ with .Description }}
+        <div class="post-subtitle">{{ . }}</div>
       {{ end }}
+      </div>
     </li>
     {{ else }}
     <li>

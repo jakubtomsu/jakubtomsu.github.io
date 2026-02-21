@@ -4,7 +4,7 @@ date: 2025-06-04
 description: "A super simple, brute force method of validating gameplay code instead of unit testing"
 ---
 
-I recently ran into some NaN propagation bug in my gameplay code, which required a bit more effort than usual.
+I recently ran into a NaN propagation bug in my gameplay code, which required a bit more effort than usual.
 
 Often, those problems are straightforward to solve: it's just a forgotten zero-check before dividing, normalizing zero-length vector, etc.
 I almost always find it immediately by looking through my most recent changes. But this time I had no idea!

@@ -95,6 +95,12 @@ img {
   max-width: 100%;
 }
 
+.post-subtitle {
+  font-size: 0.9rem;    /* Slightly smaller */
+  color: #028566;
+  line-height: 1.2;
+}
+
 code {
   padding: 2px 5px;
   color: #ccccd0;
@@ -107,6 +113,7 @@ pre code {
   white-space: pre-wrap;
   font-size: 14px;
   overflow-x: auto;
+  line-height: 1.4;
 }
 
 blockquote {
@@ -146,7 +153,7 @@ ul.blog-posts li span {
 }
 
 a.blog-tags {
-  line-height: 2;
+  line-height: 2.0;
 }
 
 h3.blog-filter {
@@ -170,7 +177,7 @@ li {
   text-indent: 0em;
 }
 
-li:before {
+li:before:not(blog-posts) {
   content: ">";
   padding-right: 16px;
 }
