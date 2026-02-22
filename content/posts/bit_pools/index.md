@@ -23,14 +23,15 @@ Pool :: proc($N: int, $T: typeid) {
 
 But I have been using a very different approach lately, which is *NOT* based on any kind of free-list-like system.
 It has a few nice performance properties:
-- only ~1 bit overhead per slot, unlike multiple bytes in a regular free list
+- only ~1 bit overhead per slot
 - significantly better slot allocation strategy with improved memory locality
 
 My approach is inspired by the [TLSF memory allocator](http://www.gii.upv.es/tlsf/), though it should be a lot simpler to understand and implement from scratch.
 
 # Bits
 
-The core idea is to just store a single bit, which determines whether a slot is in use or not. The idea is to have something like this, though we will improve it a lot later:
+The idea is to just store a single bit, which determines whether a slot is in use or not.
+Let's start with this, though we will improve it a lot later:
 ```c
 Pool :: proc($N: int, $T: typeid)
     where N % 64 == 0
@@ -91,18 +92,19 @@ Each field in the L1 array stores info about 64 fields in L0. This way each `tzc
 
 The arrows in this illustration show the implicit dependencies between the data:
 ```
-┌──────────────┐    ┌─────────┐           ┌───────────┐
-│val 0..63     │◄───┤l0 0     │◄──────────┤l1 0       │
-├──────────────┤    ├─────────┤           ├───────────┤
-│val 64..127   │◄───┤l0 1     │     ┌─────┤l1 1       │
-└──────────────┘    ├─────────┤     │     ├───────────┤
-                    │...      │     │     │...        │
-┌──────────────┐    ├─────────┤     │     │───────────│
-│val 4032..4095│◄───┤l0 63    │     │     │l1 N/4096-1│
-└──────────────┘    └─────────┘     │     └───────────┘
-┌──────────────┐    ┌──────────┐    │
-│val 4096..8191│◄───┤l0 64..127│◄───┘
-└──────────────┘    └──────────┘
+data             L0               L1
+┌──────────┐   ┌──────┐      ┌────────┐
+│0..63     │◄──┤0     │◄─────┤0       │
+├──────────┤   ├──────┤      ├────────┤
+│64..127   │◄──┤1     │   ┌──┤1       │
+└──────────┘   ├──────┤   │  ├────────┤
+               │...   │   │  │...     │
+┌──────────┐   ├──────┤   │  │────────│
+│4032..4095│◄──┤63    │   │  │N/4096-1│
+└──────────┘   └──────┘   │  └────────┘
+┌──────────┐   ┌───────┐  │
+│4096..8191│◄──┤64..127│◄─┘
+└──────────┘   └───────┘
 ```
 
 ## Search
@@ -194,3 +196,5 @@ I'm not necessarily trying to convince anyone to use this approach, however I th
 Thank you for reading!
 
 Jakub
+
+> 2026-02-22: Minor updates, correct free list memory overhead
