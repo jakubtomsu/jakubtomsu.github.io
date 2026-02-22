@@ -8,7 +8,7 @@ Pool-like datastructures are incredibly practical, especially when combined with
 They let you have an array of reusable item slots, but crucially all actions such as insertions, removals and lookups are *always O(1)*, including worst case! (Assuming you preallocate all buffers)
 
 The usual way to implement the slot-reuse mechanism is to store some kind of a list of currently unused slots.
-There are a bunch of different ways to implement this list, from a dumb array with slot indices, a intrusive/non-intrusive singly-linked-list.
+There are a bunch of different ways to implement this list, from a dumb array with slot indices, an intrusive/non-intrusive singly-linked-list.
 They essentially do the same, except minor memory overhead differences.
 
 Here's how the datastructure internals could look like:
@@ -17,7 +17,7 @@ Pool :: proc($N: int, $T: typeid) {
     data:   [N]T,
     next:   [N]u32, // per-item free list 'next'
     free:   u32, // free list head
-    max:    u32,
+    max:    u32, // max used slot
 }
 ```
 
@@ -40,14 +40,15 @@ Pool :: proc($N: int, $T: typeid)
     used:   [N/64]u64,
 }
 ```
+> For the rest of this article we assume all pools store a multiple of 64 elements.
 
 This of course has a fatal flaw - once you have thousands of items, you need to search through all the individual bits.
 
 ## *tzcnt* is your friend
 
-First of all, it's stupid to search the 64 bits of each `used` field individually with something like a loop of shr+mask+branch.
+It's wasteful to search the 64 bits of each `used` field individually with something like a loop of shr+mask+branch.
 
-There is `tzcnt`, which stands for trailing zero count, it's a x64 instruction which has been supported on all consumer chips for many many years. It's exposed to the programmer in the form of compiler intrinsics, and it lets you find the index of a lowest binary 1 in essentially a [single cycle](https://uops.info/html-instr/TZCNT_R16_R16.html).
+There is `tzcnt`, which stands for trailing zero count. It's an x64 instruction which has been supported on all consumer chips for many years. It's exposed to the programmer in the form of compiler intrinsics, and it lets you find the index of a lowest binary 1 in essentially a [single cycle](https://uops.info/html-instr/TZCNT_R16_R16.html).
 
 And while a smart optimizing compiler could convert a tiny loop into a single `tzcnt` call, using it yourself explicitly makes it clearer what's going on and it will be fast even in debug builds.
 
@@ -76,7 +77,8 @@ Can we improve this? Can we somehow quickly search among all those u64s and find
 
 # 2-level bit arrays
 
-The answer is yes, and the solution is another, but smaller bit array. Where the original bit array stores 0/1 for each slot, we can add another array to store bit per each block, which is 1 when a block is full.
+The answer is yes. The solution is another, but smaller bit array.
+While the original bit array stores 0/1 for each slot, we can add another array to store bit per each block, which is 1 when a block is full.
 
 The actual struct ends up something like this. I'll only implement the bit pool part without the actual data, since that's how I use it in my code.
 ```c
@@ -90,7 +92,7 @@ Bit_Pool :: struct($N: int)
 
 Each field in the L1 array stores info about 64 fields in L0. This way each `tzcnt` instruction effectively searches 4096 slots.
 
-The arrows in this illustration show the implicit dependencies between the data:
+The arrows in this illustration show the implicit mappings between the data:
 ```
 data             L0               L1
 ┌──────────┐   ┌──────┐      ┌────────┐
@@ -152,8 +154,6 @@ A full implementation is on [Github](https://github.com/jakubtomsu/raven/blob/ma
 
 If your **N** gets *significantly* larger than 4096, you could trivially add more levels. It's still all O(1) in *every* case. The only reason I don't do this is because my pools tend to be relatively small, tens of thousands of items at most.
 
-## Demo
-
 ## AoSoA
 
 This block-based approach lends itself to SIMD AoSoA (arrays of structures of arrays).
@@ -191,7 +191,7 @@ In case you figure something out, please do let me know! I would be very interes
 
 This approach is a bit more complicated than a dumb free slot array, but I really like the fact it's just a basic bit array, no super complicated metadata to take care of.
 
-I'm not necessarily trying to convince anyone to use this approach, however I think this kind of algorithms is still relatively uncommon, so it was worth writing about. It's certainly nothing novel, but I hope it's valuable!
+I'm not necessarily trying to convince anyone to use this approach, however I think these kinds of algorithms are still relatively uncommon, so it was worth writing about. It's certainly nothing novel, but I hope it's valuable!
 
 Thank you for reading!
 
