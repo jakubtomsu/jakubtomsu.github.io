@@ -177,7 +177,7 @@ li {
   text-indent: 0em;
 }
 
-li:before {
-  content: ">";
+ul li:before {
+  content: ">" !important;
   padding-right: 16px;
 }
