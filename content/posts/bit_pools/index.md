@@ -63,11 +63,13 @@ The code could look like this:
 find_empty_slot :: proc(pool: $T/$Pool($N, $V)) -> (result: int, ok: bool) {
     for i in 0..<N/64 {
         bit := int(intrinsics.count_trailing_zeros(~pool.used[i]))
-        if bit != 64 { // check for full block
+        // check for full block
+        if bit != 64 {
             return i * 64 + bit
         }
     }
-    return 0, false // Pool is full
+    // Pool is full
+    return 0, false
 }
 ```
 
@@ -85,8 +87,10 @@ The actual struct ends up something like this. I'll only implement the bit pool 
 Bit_Pool :: struct($N: int)
     where N % 64 == 0
 {
-    l1: [(N + 4095) / 4096]u64, // round up div by 64*64
-    l0: [N / 64]u64, // 'used' array from before
+    // round up div by 64*64
+    l1: [(N + 4095) / 4096]u64,
+    // 'used' array from before
+    l0: [N / 64]u64,
 }
 ```
 
