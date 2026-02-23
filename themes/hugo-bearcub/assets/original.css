@@ -177,7 +177,7 @@ li {
   text-indent: 0em;
 }
 
-li:before:not(blog-posts) {
+li:before {
   content: ">";
   padding-right: 16px;
 }
