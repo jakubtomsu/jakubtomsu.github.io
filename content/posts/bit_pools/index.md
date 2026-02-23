@@ -4,7 +4,7 @@ date: 2026-02-20
 description: "An alternative to free-list-based pools using 2-level bit sets"
 ---
 
-Pool-like datastructures are incredibly practical, especially when combined with generational handles.
+Pool-like datastructures are incredibly practical, especially when [combined with generational handles](https://floooh.github.io/2018/06/17/handles-vs-pointers.html).
 They let you have an array of reusable item slots, but crucially all actions such as insertions, removals and lookups are *always O(1)*, including worst case! (Assuming you preallocate all buffers)
 
 The usual way to implement the slot-reuse mechanism is to store some kind of a list of currently unused slots.
