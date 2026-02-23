@@ -208,4 +208,5 @@ Thank you for reading!
 Jakub
 
 > 2026-02-22: Minor updates, correct free list memory overhead
+
 > 2026-02-23: Typo fixes, demo
