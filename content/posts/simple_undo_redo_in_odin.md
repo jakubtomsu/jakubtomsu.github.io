@@ -8,6 +8,7 @@ This is a short blog post about something I've had to implement recently: editor
 
 A few weeks ago I started working on a new project, it's a 3D FPS game inspired by Quake and other '90s shooters.
 The world is a 16x16x16 uniform grid of blocks, and it loops infinitely. Here is a clip of the game prototype:
+
 {{< x user="jakubtomsu_" id="1794059547146936800" >}}
 
 This clip uses procedurally generated levels. Those are cool, but don't have that much structure and interesting stuff going on. So I quickly decided I need to hand-craft levels for them to reach the full potential.
@@ -93,7 +94,7 @@ This is all I need to implement the actual undo/redo functionality. This logic i
 ```odin
 block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
     modifiers: bit_set[Input_Modifier] = input_modifiers_down(inp)
-    
+
     // Pop the data from a change buffer depending on the operation
     // Breaks out of this entire scope if it's empty
     change: Editor_Undo_Item
@@ -105,7 +106,7 @@ block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
     case:
         break block
     }
-    
+
     // Prepare a save point for the current data
     // Write the change to the current state
     prev: Editor_Undo_Item
@@ -120,7 +121,7 @@ block: if input_pressed(inp, .Z) || input_repeated(inp, .Z) {
         prev = ed.level.detail_cells
         ed.level.detail_cells = v
     }
-    
+
     // Push the current data into the _other_ buffer
     switch modifiers {
     case {.Left_Control}:

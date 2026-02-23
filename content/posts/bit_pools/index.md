@@ -28,6 +28,10 @@ It has a few nice performance properties:
 
 My approach is inspired by the [TLSF memory allocator](http://www.gii.upv.es/tlsf/), though it should be a lot simpler to understand and implement from scratch.
 
+## Demo
+
+{{< x user="jakubtomsu_" id="2025892087451816092" >}}
+
 # Bits
 
 The idea is to just store a single bit, which determines whether a slot is in use or not.
