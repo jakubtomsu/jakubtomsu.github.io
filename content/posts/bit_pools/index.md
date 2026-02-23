@@ -1,7 +1,7 @@
 ---
 title: "You don't need free lists!"
 date: 2026-02-20
-description: "An alternative to free-list-based pools using 2-level bit sets"
+description: "An alternative to free-list-based pools using multi-level bit sets"
 ---
 
 Pool-like datastructures are incredibly practical, especially when [combined with generational handles](https://floooh.github.io/2018/06/17/handles-vs-pointers.html).
