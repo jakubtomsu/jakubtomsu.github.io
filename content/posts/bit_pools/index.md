@@ -13,7 +13,7 @@ They essentially do the same, except minor memory overhead differences.
 
 Here's how the datastructure internals could look like:
 ```c
-Pool :: proc($N: int, $T: typeid) {
+Pool :: struct($N: int, $T: typeid) {
     data:   [N]T,
     next:   [N]u32, // per-item free list 'next'
     free:   u32, // free list head
@@ -37,7 +37,7 @@ My approach is inspired by the [TLSF memory allocator](http://www.gii.upv.es/tls
 The idea is to just store a single bit, which determines whether a slot is in use or not.
 Let's start with this, though we will improve it a lot later:
 ```c
-Pool :: proc($N: int, $T: typeid)
+Pool :: struct($N: int, $T: typeid)
     where N % 64 == 0
 {
     data:   [N]T,
@@ -208,3 +208,4 @@ Thank you for reading!
 Jakub
 
 > 2026-02-22: Minor updates, correct free list memory overhead
+> 2026-02-23: Typo fixes, demo
