@@ -156,7 +156,9 @@ A full implementation is on [Github](https://github.com/jakubtomsu/raven/blob/ma
 
 ## More levels
 
-If your **N** gets *significantly* larger than 4096, you could trivially add more levels. It's still all O(1) in *every* case. The only reason I don't do this is because my pools tend to be relatively small, tens of thousands of items at most.
+If your **N** gets *significantly* larger than 4096, you could trivially add more levels. It's still all O(1) in every case. The only reason I don't do this is because my pools tend to be relatively small, tens of thousands of items at most.
+
+For example, if you added `l2` bit array, a single `tzcnt` instruction would effectively search 64^3 (262144) slots. That is a lot of slots.
 
 ## AoSoA
 
