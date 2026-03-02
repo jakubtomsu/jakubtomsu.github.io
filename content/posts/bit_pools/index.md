@@ -170,7 +170,7 @@ This block-based approach lends itself to SIMD AoSoA (arrays of structures of ar
 
 The L0 mask is the "ground truth" determining free slots, but since it's a bitmask of packed elements it's exactly the layout you would use as a SIMD op mask or something similar.
 
-I quite enjoy keeping datastructures simple, instead of wrapping everything in multiple levels of generic containers. Here's a an example of AoSoA combined with Bit_Pool, for something like a particle system:
+I quite enjoy keeping datastructures simple, instead of wrapping everything in multiple levels of generic containers. Here's an example of AoSoA combined with Bit_Pool, for something like a particle system:
 ```c
 MAX_FOOS :: 1024 * 16
 
