@@ -67,9 +67,13 @@ However, you still might want to look at the results if you need to debug *why* 
 >
 > Always profile, especially when things go wrong.
 
-# Internal Debug Messages
+# Internal Flags
 
-There is a hidden flag called `-show-debug-messages`, and while it's not intended for regular users, it's extremely useful. It dumps a LOT of good statistics to *stderr* useful for debugging and profiling.
+You can often find interesting hidden flags in the [compiler source code](https://github.com/odin-lang/Odin/blob/c36bd4f85813c991cd6c155f072cdea637972199/src/main.cpp#L518). Let's look at some of them.
+
+# Debug Messages
+
+There is a flag called `-show-debug-messages`, and while it's not intended for regular users, it's extremely useful. It dumps a LOT of good statistics to *stderr* useful for debugging and profiling.
 
 So let's measure Hello World again:
 ```
@@ -90,6 +94,18 @@ Total File Size - 2572637
 This is an overview of ***all*** the things the compiler had to parse to compile your program.
 
 But 26 packages and 80k lines of code seems like a lot for a Hello World. All of that was pulled in by `core:fmt` and it's dependencies. Let's see if we can do something about it.
+
+# Build Diagnostics
+
+When you call `odin build` with the `-build-diagnostics` flag it's going to generate big tables from LLVM backend information.
+
+Currently this includes two primary kinds of tables:
+- parapoly instatiation statistics
+- module diagnostics
+
+The parapoly tables just list the generic procedures with the most instantiations, plus their instruction counts.
+
+The module diagnostics list per-module total instruction count as well as other info, which can be useful for determining which module is the slowest to compile by LLVM.
 
 ### Dependencies
 
@@ -197,13 +213,14 @@ The overhead is totally negligible even with hundreds of variants *when the proc
 
 ### What to do about this
 
+> Update: there is now a `-build-diagnostics` flag. But the following approach also works.
+
 There isn't any kind of diagnostics in the Odin compiler itself to check if this is happening. What you can do however is compile your code and check the symbols. For example like this on Windows:
 ```
 odin build my_program -build-mode:lib
 dumpbin /SYMBOLS my_program.lib > symbols.txt
 ```
 Or with `objdump` on Linux. You're looking for a long list of repeated procedure symbols, something like: `my_package::my_procedure:proc(my_param:$$value, ...)`.
-
 
 
 To help mitigate this issue, you could try putting all the common code into a non-parapoly procedure and calling it indirectly. Or, if you don't actually *need* the parapoly specialization and only use it for "optimization", just get rid of it.
@@ -238,3 +255,5 @@ Thank you for reading!
 > Edit 2026-01-23: A small section about checking dependency IR
 
 > Edit 2026-02-10: Linked graph generator and new ufmt version
+
+> Edit 2026-04-11: Build Diagnostics flag
